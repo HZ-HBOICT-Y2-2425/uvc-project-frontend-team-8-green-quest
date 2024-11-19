@@ -1,14 +1,41 @@
 <script>
   import '../../app.css';
 
-  // Placeholder data for the options
+  // Placeholder data with image paths and random coin amounts
   const options = {
-    TREES: ['Oak', 'Pine', 'Maple', 'Birch'],
-    BUSHES: ['Rose', 'Hibiscus', 'Azalea', 'Lilac'],
-    FLOWERS: ['Sunflower', 'Tulip', 'Daisy', 'Lily'],
-    ANIMALS: ['Lion', 'Elephant', 'Tiger', 'Zebra'],
-    INSECTS: ['Bee', 'Butterfly', 'Ant', 'Grasshopper']
+    TREES: [
+      { name: 'Oak', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Pine', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Maple', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Birch', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 }
+    ],
+    BUSHES: [
+      { name: 'Rose', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Hibiscus', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Azalea', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Lilac', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 }
+    ],
+    FLOWERS: [
+      { name: 'Sunflower', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Tulip', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Daisy', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Lily', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 }
+    ],
+    ANIMALS: [
+      { name: 'Lion', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Elephant', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Tiger', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Zebra', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 }
+    ],
+    INSECTS: [
+      { name: 'Bee', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Butterfly', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Ant', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 },
+      { name: 'Grasshopper', image: '/coins.png', coins: Math.floor(Math.random() * 10) + 1 }
+    ]
   };
+  
+  
 
   // Reactive variable to hold the currently selected category
   let selectedCategory = 'TREES';
@@ -21,7 +48,13 @@
 
 <div class="bg-beige h-screen flex flex-col justify-between">
   <!-- Header Section -->
-  <h1 class="text-black text-center text-2xl font-bold">SHOP</h1>
+  <div class="flex items-center justify-center relative">
+    <!-- Back Button -->
+    <a href="/" class="absolute left-4">
+      <img src="/back.png" alt="Back" class="h-6 w-6" />
+    </a>
+    <h1 class="text-black text-center text-2xl font-bold">SHOP</h1>
+  </div>
 
   <!-- Middle Green Box -->
   <div class="flex-grow flex items-start justify-center bg-beige pt-20">
@@ -66,10 +99,23 @@
 
       <!-- Right Content Section -->
       <div class="flex-grow flex flex-wrap justify-evenly items-center gap-4 pl-4">
-        {#each options[selectedCategory] as item}
-          <div class="bg-beige text-dark-green w-[45%] h-20 flex items-center justify-center rounded-lg text-sm font-medium shadow-md">
-            {item}
+        <!-- Dynamically render items -->
+        {#each options[selectedCategory] as { name, image, coins }}
+        <div class="bg-beige w-[45%] h-40 flex flex-col items-center justify-between rounded-lg p-2 shadow-md">
+          <!-- Image -->
+          <img src={image} alt={name} class="h-16 w-auto" />
+          
+          <!-- Brown/Orange Box -->
+          <div class="bg-orange-500 text-white w-full flex items-center justify-between px-2 py-1 rounded-md">
+            <!-- Name -->
+            <p class="text-sm font-medium">{name}</p>
+            <!-- Coins -->
+            <div class="flex items-center gap-1">
+              <img src="/coins.png" alt="coins" class="h-4 w-4" />
+              <span class="text-sm font-medium">{coins}</span>
+            </div>
           </div>
+        </div>        
         {/each}
       </div>
     </div>
@@ -80,20 +126,19 @@
 </div>
 
 <style>
-  /* Tailwind color customization */
   .bg-beige {
-    background-color: #f5e6c8; /* Beige */
+    background-color: #f5e6c8;
   }
   .bg-dark-green {
-    background-color: #3d6b35; /* Dark Green */
+    background-color: #3d6b35;
   }
   .bg-light-green {
-    background-color: #a8d5a2; /* Light Green */
+    background-color: #a8d5a2;
   }
   .text-dark-green {
-    color: #3d6b35; /* Dark Green Text */
+    color: #3d6b35;
   }
   .text-beige {
-    color: #f5e6c8; /* Beige Text */
+    color: #f5e6c8;
   }
 </style>
