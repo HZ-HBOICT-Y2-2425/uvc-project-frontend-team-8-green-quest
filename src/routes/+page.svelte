@@ -1,9 +1,9 @@
 <script>
+    import Garden from "$lib/components/Garden.svelte";
     import "../app.css";
 </script>
 
-<h1 class="bg-lime-400">Welcome to SvelteKit</h1>
-<p>
-    Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the
-    documentation
-</p>
+<div class="h-screen w-screen flex justify-center items-center bg-gray-100">
+    <!-- Garden container -->
+    <Garden />
+</div>
