@@ -2,16 +2,19 @@
     // @ts-nocheck
 
     import "../../app.css";
+
     // Test items for the garden
     let items = [
         { id: 1, src: "/assets/images/tree.png", x: 200, y: 100 },
         { id: 2, src: "/assets/images/flower.png", x: 400, y: 300 },
     ];
 
-    let width = 10000;
-    let heigth = 10000;
-    let offsetX = -width / 2 + 170; // Center horizontally (half of 10000px width - half of 340px container width)
-    let offsetY = -width / 2 + 200;
+    let width = 10000; // Background width
+    let heigth = 10000; // Background height
+    let viewWidth = 340; // Container width
+    let viewHeight = 400; // Container height
+    let offsetX = -width / 2; // Center horizontally
+    let offsetY = -heigth / 2; // Center vertically
     let isPanning = false; // Flag to check if panning is active
     let startX = 0; // Initialize X position
     let startY = 0; // Initialize Y position
@@ -29,7 +32,7 @@
                 : event.touches[0].clientY;
     };
 
-    // Handle mouse move or touch move
+    // Handle mouse move or touch move for panning
     const pan = (event) => {
         if (!isPanning) return;
 
@@ -45,8 +48,13 @@
         const deltaX = currentX - startX;
         const deltaY = currentY - startY;
 
-        offsetX += deltaX;
-        offsetY += deltaY;
+        // Calculate new offsets
+        let newOffsetX = offsetX + deltaX;
+        let newOffsetY = offsetY + deltaY;
+
+        // Restrict offsets within the background boundaries
+        offsetX = Math.min(0, Math.max(newOffsetX, -(width - viewWidth)));
+        offsetY = Math.min(0, Math.max(newOffsetY, -(heigth - viewHeight)));
 
         // Update the start position for the next move
         startX = currentX;
@@ -79,7 +87,7 @@
                 src={item.src}
                 alt="Garden Element"
                 class="absolute w-[50px] h-[50px]"
-                style="top: {item.y}px; left: {item.x}px;"
+                style="top: {item.y + (heigth / 2)}px; left: {item.x + (width / 2)}px;"
             />
         {/each}
     </div>
