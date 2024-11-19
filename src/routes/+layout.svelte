@@ -2,14 +2,6 @@
     import "../app.css";
 </script>
 
-<!-- <div>
-	<header>
-		<p>Coins</p>
-         coins image 
-        <p>CO2 saved</p>
-        <p>user</p>
-	</header>
-	<main> -->
 <div class="flex flex-col justify-between">
     <header class="bg-green flex justify-between p-3 w-full h-full">
         <div class="flex flex-row">
@@ -26,7 +18,7 @@
         <slot />
     </main>
 
-    <footer class="bg-green flex justify-between p-3 w-full h-full">
+    <footer class="bg-green flex justify-between p-3 w-full h-full mt-5">
         <button id="shop">
             <img src="/shop.png" alt="shop" class="w-12 h-fit" />
         </button>
