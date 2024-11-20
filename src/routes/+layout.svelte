@@ -25,8 +25,9 @@
         <button id="leaderboard">
             <h2 class="text-3xl p-2 bg-orange-red rounded-3xl">Leaderboard</h2>
         </button>
-        <button id="info">
-            <img src="/info.png" alt="information" class="w-10 h-fit mt-1" />
-        </button>
+       
+         <a id="info" href="/info" sveltekit:navigate>
+        <img src="/info.png" alt="information" class="w-10 h-fit mt-1" />
+    </a>
     </footer>
 </div>
