@@ -2,7 +2,6 @@
     // to do add api calls
 </script>
 
-<h1 class="text-2xl p-2 flex items-center justify-center">Challenges</h1>
 <section class="bg-green pl-5 p-5 m-3 rounded-3xl">
     <div class="bg-beige p-2 mb-2 border border-orange-red rounded-2xl flex flex-row justify-between">
         <h2 class="text-xl mt-2">Challenge 1</h2>
