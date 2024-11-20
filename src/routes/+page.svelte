@@ -3,9 +3,8 @@
     import "../app.css";
 </script>
 
-<h1>Green Quest</h1>
-
 <div id="garden">
+    <h1 class="text-2xl p-2 mb-5 flex items-center justify-center">Green Quest</h1>
     <!-- <Garden /> -->
 </div>
 
