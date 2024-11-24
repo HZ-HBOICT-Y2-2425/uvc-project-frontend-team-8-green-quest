@@ -1,5 +1,17 @@
 <script>
-    // to do add api calls
+    	import { onMount } from 'svelte';
+
+	// genericData is an array that will hold the data from the API
+	let genericData = [];
+
+	//get date from an api
+	onMount(async () => {
+		const response = await fetch('http://localhost:3000/api/shop');
+		const jsonData = await response.json();
+		// only read the data property from the response
+		genericData = jsonData.data;
+        console.log(jsonData);
+	});
 </script>
 
 <section class="bg-green pl-5 p-5 m-3 rounded-3xl">

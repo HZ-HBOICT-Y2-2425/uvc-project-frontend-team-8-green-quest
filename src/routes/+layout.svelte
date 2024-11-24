@@ -27,8 +27,8 @@
         <button id="leaderboard">
             <h2 class="text-3xl p-2 bg-orange-red rounded-3xl">Leaderboard</h2>
         </button>
-        <button id="info">
-            <img src="/info.png" alt="information" class="w-10 h-fit mt-1 bg-orange-red rounded-3xl" />
-        </button>
+         <a id="info" href="/info">
+        <img src="/info.png" alt="information" class="w-10 h-fit mt-1 bg-orange-red rounded-3xl" />
+    </a>
     </footer>
 </div>
