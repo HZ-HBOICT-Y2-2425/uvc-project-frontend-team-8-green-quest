@@ -12,12 +12,15 @@ const config = {
       strict: false
     }),
     paths: {
-      base: process.env.NODE_ENV === 'production' ? '/uvc-project-frontend-team-8-green-quest' : '',
+      base: '/uvc-project-frontend-team-8-green-quest',
     },
     prerender: {
       entries: [
         '/',          // Pre-render the home page
-        '/challenges',     // Example: Pre-render specific static routes
+        '/challenges', 
+		'/challenges/1',
+		'/challenges/2',
+		'/challenges/3',    // Example: Pre-render specific static routes
         '/shop',    // Example: Pre-render dynamic routes
         ],
     },
