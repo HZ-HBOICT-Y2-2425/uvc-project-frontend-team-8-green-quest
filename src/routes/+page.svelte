@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import Garden from "$lib/components/Garden.svelte";
     import Challenge from "$lib/components/Challenge.svelte";
     import "../app.css";
