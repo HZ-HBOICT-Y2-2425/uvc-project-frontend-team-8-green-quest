@@ -1,36 +1,40 @@
-name: Deploy to GitHub Pages
+name: CI Pipeline
 
 on:
   push:
     branches:
       - release
 
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Ensure write permission is granted
 
     steps:
+      # Step 1: Check out the code from the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18  
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      # Step 4: Build the application
+      - name: Build the app
         run: npm run build
 
-      - name: List files in root
-        run: ls -la build
+      - name: Notify failure
+        if: failure()
+        run: |
+         echo "Build failed!"
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build
+      #- name: Run tests
+      #  run: npm test
+
+
