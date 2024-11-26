@@ -1,23 +1,23 @@
 <script>
   export let data;
-  console.log(data.items); 
-
+  console.log(data.items);
+ 
   let tasks = data.items;
-
+ 
   let currentTaskIndex = 0;
-
+ 
   const nextTask = () => {
     if (currentTaskIndex < tasks.length - 1) {
       currentTaskIndex += 1;
     }
   };
-
+ 
   const prevTask = () => {
     if (currentTaskIndex > 0) {
       currentTaskIndex -= 1;
     }
   };
-
+ 
   const completeTask = (task) => {
     console.log(`${task.title} completed! Saved ${task.CO2_reduction_kg}kg of CO2.`);
   };
@@ -105,3 +105,4 @@
      background-color: #f97316;
    }
 </style>
+ 

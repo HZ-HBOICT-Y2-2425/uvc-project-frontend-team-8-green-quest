@@ -3,7 +3,8 @@
     let sections = [
         {
             title: "What is Green Quest?",
-            content: "Green Quest is a fun and interactive app designed to help you reduce your carbon footprint. By completing small, daily challenges, you can make a real impact on the environment while earning coins to personalize your very own virtual garden.",
+            content:
+                "Green Quest is a fun and interactive app designed to help you reduce your carbon footprint. By completing small, daily challenges, you can make a real impact on the environment while earning coins to personalize your very own virtual garden.",
             isOpen: false,
         },
         {
@@ -33,7 +34,7 @@
                 </dl>
             `,
             isOpen: false,
-        }
+        },
     ];
 
     function toggleSection(index) {
@@ -41,23 +42,35 @@
     }
 </script>
 
-<h1 class="text-3xl text-center mt-4 text-dark-green">Info Page</h1>
-<img src="/assets/images/info.png" class="w-full max-w-md mx-auto mt-4" alt="Information page illustration">
+<div class="flex flex-col justify-between p-5">
+    <div class="flex items-center justify-center relative">
+      <a href="/" class="absolute left-4">
+        <img src="/back.png" alt="Back" class="h-8 w-8 bg-orange-red rounded-full" />
+      </a>
+      <h1 class="text-black text-center text-2xl font-bold">INFO PAGE</h1>
+    </div>
+</div>
 
-
-
+<img
+src="/assets/images/info.png"
+class="w-full max-w-md mx-auto mt-4"
+alt="Information page illustration"
+/> 
 
 <!-- Accordion Container -->
 <section class="bg-green p-6 mx-4 mt-6 rounded-3xl">
     {#each sections as section, index}
-        <div 
+        <div
             class="bg-beige p-4 mb-6 border-4 border-orange-red rounded-2xl cursor-pointer flex justify-between items-center shadow-md"
-            on:click={() => toggleSection(index)}>
+            on:click={() => toggleSection(index)}
+        >
             <span class="text-xl font-bold">{section.title}</span>
-            <span class="text-xl">{section.isOpen ? '▲' : '▼'}</span>
+            <span class="text-xl">{section.isOpen ? "▲" : "▼"}</span>
         </div>
         {#if section.isOpen}
-            <div class="bg-beige p-6 mb-6 rounded-lg shadow-md text-base leading-relaxed text-black border-4 border-orange-red">
+            <div
+                class="bg-beige p-6 mb-6 rounded-lg shadow-md text-base leading-relaxed text-black border-4 border-orange-red"
+            >
                 {@html section.content}
             </div>
         {/if}
