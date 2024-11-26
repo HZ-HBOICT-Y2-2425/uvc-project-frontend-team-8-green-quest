@@ -7,7 +7,7 @@ const config = {
     adapter: adapter({
       pages: 'build',
       assets: 'build',
-      fallback: null,
+      fallback: 'inde.html',
       precompress: false,
       strict: false
     }),
