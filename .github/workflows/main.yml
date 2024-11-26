@@ -3,11 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - release  # Replace with your default branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Ensure write permission is granted
 
     steps:
       - name: Checkout code
