@@ -5,12 +5,21 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
   kit: {
     adapter: adapter({
-      pages: 'build',    // Output directory for the built files
-      assets: 'build',   // Directory for static assets
-      fallback: null,    // No fallback for static hosting
+      pages: 'build',
+      assets: 'build',
+      fallback: null,
+      precompress: false,
+      strict: false
     }),
     paths: {
-      base: process.env.NODE_ENV === 'production' ? '/uvc-project-frontend-team-8-green-quest' : '', // Use your GitHub Pages repo name here
+      base: process.env.NODE_ENV === 'production' ? '/uvc-project-frontend-team-8-green-quest' : '',
+    },
+    prerender: {
+      entries: [
+        '/',          // Pre-render the home page
+        '/challenges',     // Example: Pre-render specific static routes
+        '/shop',    // Example: Pre-render dynamic routes
+        ],
     },
   },
   preprocess: vitePreprocess(),
