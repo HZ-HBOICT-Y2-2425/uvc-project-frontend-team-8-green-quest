@@ -6,13 +6,14 @@
 
 	//get date from an api
 	onMount(async () => {
-		const response = await fetch('http://localhost:3000/api/shop');
+		const response = await fetch('http://localhost:3010/challenges');
 		const jsonData = await response.json();
 		// only read the data property from the response
 		genericData = jsonData.data;
         console.log(jsonData);
 	});
 </script>
+
 
 <section class="bg-green pl-5 p-5 m-3 rounded-3xl">
     <div class="bg-beige p-2 mb-2 border border-orange-red rounded-2xl flex flex-row justify-between">
