@@ -1,0 +1,19 @@
+import{b as _,c as R,a as f,t as y}from"../chunks/disclose-version.4mwnyd39.js";import"../chunks/legacy.C0vkhBWH.js";import{b as W,h as x,a as w,e as Y,f as O,D as E,U as H,V as S,s as T,v as j,u as D,G as h,W as k,J as c,K as d,Q as s,S as U,T as z,X as F}from"../chunks/runtime.B8VvrZ1Y.js";import{s as Q}from"../chunks/render.X5FDlczF.js";import{i as P}from"../chunks/if.CyHbNULS.js";import{e as V,i as q}from"../chunks/each.8dt2bd6Z.js";import{e as B}from"../chunks/events.Bz3koNc8.js";function J(u,n,v,g,m){var t=u,a="",o;W(()=>{if(a===(a=n()??"")){x&&w();return}o!==void 0&&(D(o),o=void 0),a!==""&&(o=Y(()=>{if(x){O.data;for(var e=w(),r=e;e!==null&&(e.nodeType!==8||e.data!=="");)r=e,e=E(e);if(e===null)throw H(),S;_(O,r),t=T(e);return}var i=a+"",l=R(i);_(j(l),l.lastChild),t.before(l)}))})}var K=y('<div class="bg-beige p-6 mb-6 rounded-lg shadow-md text-base leading-relaxed text-black border-4 border-orange-red"><!></div>'),N=y('<div class="bg-beige p-4 mb-6 border-4 border-orange-red rounded-2xl cursor-pointer flex justify-between items-center shadow-md"><span class="text-xl font-bold"> </span> <span class="text-xl"> </span></div> <!>',1),X=y('<h1 class="text-3xl text-center mt-4 text-dark-green">Info Page</h1> <img src="/assets/images/info.png" class="w-full max-w-md mx-auto mt-4" alt="Information page illustration"> <section class="bg-green p-6 mx-4 mt-6 rounded-3xl"></section>',1);function re(u){let n=z([{title:"What is Green Quest?",content:"Green Quest is a fun and interactive app designed to help you reduce your carbon footprint. By completing small, daily challenges, you can make a real impact on the environment while earning coins to personalize your very own virtual garden.",isOpen:!1},{title:"How It Works?",content:`
+                <ol class="list-decimal list-inside">
+                    <li><strong>Create Your Profile:</strong> Sign up and set your sustainability goals.</li>
+                    <li><strong>Receive Daily Challenges:</strong> Each day, you'll get challenges like saving water, using public transport, or reducing energy use.</li>
+                    <li><strong>Complete Challenges:</strong> Earn coins for every challenge you complete. Watch your impact grow as you reduce your CO2 emissions!</li>
+                    <li><strong>Upgrade Your Virtual Garden:</strong> Use your coins to upgrade and decorate your virtual garden, showing off your sustainability journey.</li>
+                </ol>
+            `,isOpen:!1},{title:"FAQ Section",content:`
+                <dl class="space-y-4">
+                    <dt class="font-bold text-lg">Q: How do I earn coins?</dt>
+                    <dd class="ml-4 text-base leading-relaxed">A: You can earn coins by completing daily challenges. Each completed challenge rewards you with coins that you can use to upgrade your virtual garden.</dd>
+
+                    <dt class="font-bold text-lg">Q: How do I add friends?</dt>
+                    <dd class="ml-4 text-base leading-relaxed">A: Go to the Friends tab, enter your friend's username, and send them a request. Once they accept, you can compare scores and track their progress.</dd>
+
+                    <dt class="font-bold text-lg">Q: What is a virtual garden?</dt>
+                    <dd class="ml-4 text-base leading-relaxed">A: The virtual garden is your personal space in Green Quest. You can use the coins you earn from challenges to customize and upgrade your garden, representing your journey towards a sustainable lifestyle.</dd>
+                </dl>
+            `,isOpen:!1}]);function v(t){F(n,s(n)[t].isOpen=!s(n)[t].isOpen)}var g=X(),m=h(k(g),4);V(m,5,()=>s(n),q,(t,a,o)=>{var e=N(),r=k(e),i=c(r),l=c(i,!0);d(i);var b=h(i,2),C=c(b,!0);d(b),d(r);var G=h(r,2);P(G,()=>s(a).isOpen,I=>{var p=K(),A=c(p);J(A,()=>s(a).content),d(p),f(I,p)}),U(()=>{Q(l,s(a).title),Q(C,s(a).isOpen?"▲":"▼")}),B("click",r,()=>v(o)),f(t,e)}),d(m),f(u,g)}export{re as component};
