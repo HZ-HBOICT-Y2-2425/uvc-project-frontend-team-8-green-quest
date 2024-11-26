@@ -1,15 +1,19 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter()
-	},
-	preprocess: vitePreprocess()
+  kit: {
+    adapter: adapter({
+      pages: 'build',    // Output directory for the built files
+      assets: 'build',   // Directory for static assets
+      fallback: null,    // No fallback for static hosting
+    }),
+    paths: {
+      base: process.env.NODE_ENV === 'production' ? '/uvc-project-frontend-team-8-green-quest' : '', // Use your GitHub Pages repo name here
+    },
+  },
+  preprocess: vitePreprocess(),
 };
 
 export default config;
