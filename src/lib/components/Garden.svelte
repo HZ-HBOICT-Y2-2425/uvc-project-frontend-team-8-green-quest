@@ -5,8 +5,8 @@
 
     // Test items for the garden
     let items = [
-        { id: 1, src: "/assets/images/tree.png", x: 200, y: 100 },
-        { id: 2, src: "/assets/images/flower.png", x: 400, y: 300 },
+        { id: 1, src: "/treeAssets/tree2.png", x: 200, y: 100 },
+        { id: 2, src: "/treeAssets/tree1.png", x: 400, y: 300 },
     ];
 
     let width = 10000; // Background width
@@ -78,14 +78,14 @@
 >
     <div
         class="absolute w-[10000px] h-[10000px] bg-cover bg-repeat"
-        style="background-image: url('/assets/images/Green.jpg'); transform: translate({offsetX}px, {offsetY}px);"
+        style="background-image: url('/assets/images/Green-Copy.jpg'); transform: translate({offsetX}px, {offsetY}px);"
     >
         <!-- Items in the garden -->
         {#each items as item (item.id)}
             <img
                 src={item.src}
                 alt="Garden Element"
-                class="absolute w-[50px] h-[50px]"
+                class="absolute w-[100px] h-[100px]"
                 style="top: {item.y + (heigth / 2)}px; left: {item.x + (width / 2)}px;"
             />
         {/each}

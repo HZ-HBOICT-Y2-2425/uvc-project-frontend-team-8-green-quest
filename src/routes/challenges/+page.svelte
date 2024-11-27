@@ -22,31 +22,35 @@
   }
 </script>
 
-<div class="bg-light-beige h-screen flex flex-col justify-between">
-  <div class="flex items-center justify-center relative">
-      <a href="/" class="absolute left-4">
-          <img src="/back.png" alt="Back" class="h-6 w-6" />
-      </a>
-      <h1 class="text-black text-center text-2xl font-bold">TASK DETAILS</h1>
-  </div>
+<div class="bg-light-beige h-screen flex flex-col justify-between p-5">
+    <div class="flex items-center justify-center relative">
+        <a href="/" class="absolute left-4">
+          <img
+            src="back.png"
+            alt="Back"
+            class="h-8 w-8 bg-orange-red rounded-full"
+          />
+        </a>
+        <h1 class=" text-center text-2xl font-bold">CHALLENGE</h1>
+      </div>
 
   <div class="flex-grow flex items-start justify-center bg-light-beige pt-20">
       <div class="bg-dark-gray h-96 w-80 rounded-3xl p-5 flex flex-col relative">
-          <div class="absolute top-2 left-2 text-sm font-bold text-white px-2 py-1 rounded-md bg-blue-500">
+          <div class="absolute top-2 left-2 text-lg font-bold px-2 py-1 rounded-md">
               {task.difficulty}
           </div>
-          <div class="absolute top-2 right-2 text-sm font-bold text-white px-2 py-1 rounded-md bg-red-500">
+          <div class="absolute top-2 right-2 text-lg font-bold px-2 py-1 rounded-md">
               CO2: {task.CO2_reduction_kg} kg
           </div>
 
           <div class="bg-white w-full h-48 flex flex-col items-center justify-between rounded-lg p-4 shadow-md">
-              <p class="text-dark-green text-lg font-bold">{task.title}</p>
-              <p class="text-sm text-dark-green">{task.description}</p>
+              <p class="text-dark-green text-2xl font-bold">{task.title}</p>
+              <p class="text-lg text-dark-green">{task.description}</p>
 
-              <div class="bg-orange-500 text-white w-full flex items-center justify-between px-2 py-1 rounded-md mt-4">
+              <div class="bg-orange-500 w-full flex items-center justify-between px-2 py-1 rounded-md mt-4">
                   <div class="flex items-center gap-1">
-                      <img src="/coins.png" alt="coins" class="h-4 w-4" />
-                      <span class="text-sm font-medium">{task.coins}</span>
+                      <img src="/coins.png" alt="coins" class="h-8 w-8" />
+                      <span class="text-lg font-medium">{task.cost}</span>
                   </div>
               </div>
           </div>
