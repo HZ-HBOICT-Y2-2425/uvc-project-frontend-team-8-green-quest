@@ -24,17 +24,24 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
+        
+      # Step 4: Run Linter
+      - name: Run linter
+        run: npm run lint
 
-      # Step 4: Build the application
+      # Step 5: Build the application
       - name: Build the app
         run: npm run build
 
+      # Step 6: Notify failure
       - name: Notify failure
         if: failure()
         run: |
          echo "Build failed!"
 
-      #- name: Run tests
-      #  run: npm test
+      # Step 7: Run tests
+      - name: Run tests
+        run: npm test
+
 
 

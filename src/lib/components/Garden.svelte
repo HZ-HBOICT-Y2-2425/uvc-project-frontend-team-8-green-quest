@@ -66,7 +66,6 @@
         isPanning = false;
     };
 </script>
-
 <div
     class="relative w-[340px] h-[400px] overflow-hidden border border-gray-300 rounded-2xl touch-none"
     on:mousedown|preventDefault={startPan}

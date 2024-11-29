@@ -1,52 +1,26 @@
 <script>
-   let tasks = [
-     { 
-       name: 'Water the plants', 
-       description: 'Ensure all plants are watered and healthy', 
-       coins: Math.floor(Math.random() * 10) + 1, 
-       difficulty: 'Easy', 
-       co2Savings: 0.5 
-     },
-     { 
-       name: 'Prune the trees', 
-       description: 'Trim dead branches and ensure healthy growth', 
-       coins: Math.floor(Math.random() * 10) + 1, 
-       difficulty: 'Medium', 
-       co2Savings: 1.2 
-     },
-     { 
-       name: 'Feed the animals', 
-       description: 'Provide food to all the animals in the garden', 
-       coins: Math.floor(Math.random() * 10) + 1, 
-       difficulty: 'Easy', 
-       co2Savings: 0.3 
-     },
-     { 
-       name: 'Collect the honey', 
-       description: 'Harvest honey from the beehives', 
-       coins: Math.floor(Math.random() * 10) + 1, 
-       difficulty: 'Hard', 
-       co2Savings: 2.5 
-     }
-   ];
+  export let data;
+  console.log(data.items);
  
-   let currentTaskIndex = 0;
-
-   const nextTask = () => {
-     if (currentTaskIndex < tasks.length - 1) {
-       currentTaskIndex += 1;
-     }
-   };
+  let tasks = data.items;
  
-   const prevTask = () => {
-     if (currentTaskIndex > 0) {
-       currentTaskIndex -= 1;
-     }
-   };
+  let currentTaskIndex = 0;
  
-   const completeTask = (task) => {
-     console.log(`${task.name} completed! Earned ${task.coins} coins and saved ${task.co2Savings}kg of CO2.`);
-   };
+  const nextTask = () => {
+    if (currentTaskIndex < tasks.length - 1) {
+      currentTaskIndex += 1;
+    }
+  };
+ 
+  const prevTask = () => {
+    if (currentTaskIndex > 0) {
+      currentTaskIndex -= 1;
+    }
+  };
+ 
+  const completeTask = (task) => {
+    console.log(`${task.title} completed! Saved ${task.CO2_reduction_kg}kg of CO2.`);
+  };
 </script>
  
 <div class="bg-light-beige h-screen flex flex-col justify-between">
@@ -63,11 +37,11 @@
          {tasks[currentTaskIndex].difficulty}
        </div>
        <div class="absolute top-2 right-2 text-sm font-bold text-white px-2 py-1 rounded-md bg-red-500">
-         CO2: {tasks[currentTaskIndex].co2Savings} kg
+         CO2: {tasks[currentTaskIndex].CO2_reduction_kg} kg
        </div>
  
        <div class="bg-white w-full h-48 flex flex-col items-center justify-between rounded-lg p-4 shadow-md">
-         <p class="text-dark-green text-lg font-bold">{tasks[currentTaskIndex].name}</p>
+         <p class="text-dark-green text-lg font-bold">{tasks[currentTaskIndex].title}</p>
          <p class="text-sm text-dark-green">{tasks[currentTaskIndex].description}</p>
  
          <div class="bg-orange-500 text-white w-full flex items-center justify-between px-2 py-1 rounded-md mt-4">
@@ -131,3 +105,4 @@
      background-color: #f97316;
    }
 </style>
+ 

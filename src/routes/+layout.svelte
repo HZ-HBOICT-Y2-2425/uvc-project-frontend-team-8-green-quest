@@ -20,14 +20,15 @@
 
     <footer class="bg-green flex justify-between p-3 w-full h-full mt-5">
         <button id="shop">
+            <a href="/shop">
             <img src="/shop.png" alt="shop" class="w-12 h-fit" />
+        </a>
         </button>
         <button id="leaderboard">
             <h2 class="text-3xl p-2 bg-orange-red rounded-3xl">Leaderboard</h2>
         </button>
-       
-         <a id="info" href="/info" sveltekit:navigate>
-        <img src="/info.png" alt="information" class="w-10 h-fit mt-1" />
+         <a id="info" href="/info">
+        <img src="/info.png" alt="information" class="w-10 h-fit mt-1 bg-orange-red rounded-3xl" />
     </a>
     </footer>
 </div>
