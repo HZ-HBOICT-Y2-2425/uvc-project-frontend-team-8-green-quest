@@ -1,5 +1,6 @@
 <script>
     import "../app.css";
+    
 </script>
 
 <div class="flex flex-col justify-between">
