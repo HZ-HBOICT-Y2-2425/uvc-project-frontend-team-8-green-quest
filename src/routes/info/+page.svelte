@@ -40,12 +40,15 @@
     function toggleSection(index) {
         sections[index].isOpen = !sections[index].isOpen;
     }
+    function goBack() {
+    window.history.back();
+  }
 </script>
 
 <div class="flex flex-col justify-between p-5">
     <div class="flex items-center justify-center relative">
       <a href="/" class="absolute left-4">
-        <img src="/back.png" alt="Back" class="h-8 w-8 bg-orange-red rounded-full" />
+        <img on:click={goBack} src="/back.png" alt="Back" class="h-8 w-8 bg-orange-red rounded-full" />
       </a>
       <h1 class="text-black text-center text-2xl font-bold">INFO PAGE</h1>
     </div>
