@@ -68,11 +68,10 @@
 <!-- Modal Content -->
 <div class="flex-grow flex flex-col justify-center items-center p-5">
   <div class="bg-white w-11/12 md:w-3/4 lg:w-1/2 rounded-xl p-5 shadow-lg relative">
-
-    <!-- Top Section -->
+    <!-- Title Section -->
     <div class="flex items-center justify-between mb-5">
       <!-- Back Button -->
-      <button on:click={closeModal}>
+      <button on:click={closeModal} class="mr-3">
         <img
           src="back.png"
           alt="Back"
@@ -81,34 +80,55 @@
       </button>
       <!-- Task Title -->
       <h1 class="text-dark-green text-2xl font-bold">{selectedChallenge.title}</h1>
-      <!-- CO2 Info (without color) -->
-      <div class="text-lg font-bold">
-        CO2: {selectedChallenge.CO2_reduction_kg} kg
+    </div>
+
+    <!-- Description and Impact -->
+    <div class="mb-5">
+      <p class="text-dark-green text-lg">{selectedChallenge.description}</p>
+      <p class="text-sm text-gray-600 mt-2">{selectedChallenge.impact}</p>
+    </div>
+
+    <!-- Difficulty and CO2 Reduced -->
+    <div class="flex justify-between items-start mb-5">
+      <!-- Difficulty Section -->
+      <div class="text-center">
+        <p class="text-lg font-bold">Difficulty</p>
+        <p class="text-lg">{selectedChallenge.difficulty}</p>
+      </div>
+      <!-- CO2 Reduced Section -->
+      <div class="text-center">
+        <p class="text-lg font-bold">CO2 Reduced</p>
+        <p class="text-lg">{selectedChallenge.CO2_reduction_kg} kg</p>
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="bg-light-beige rounded-lg shadow-md p-5">
-      <h2 class="text-sm text-dark-green">{selectedChallenge.description}</h2>
-    </div>
+    <!-- Reward Section -->
+<div class="mt-5 flex items-center justify-center">
+  <!-- Complete Button -->
+  <button
+    class="flex items-center px-4 py-2 rounded-lg text-lg font-bold bg-green shadow-md"
+    on:click={() => {
+      console.log(`${selectedChallenge.title} completed!`);
+      closeModal();
+    }}
+  >
+    <!-- Complete Text -->
+    <span class="mr-3">Complete</span>
+    <!-- Coin Image and Reward -->
+    <img src="/coins.png" alt="coins" class="h-6 w-6 mr-2" />
+    <span>{selectedChallenge.coins}</span>
+  </button>
+</div>
 
     <!-- Button Section -->
-    <div class="mt-5 flex justify-center">
-      <div class="flex items-center justify-between px-4 py-2 rounded-lg w-full max-w-md">
-        <div class="flex items-center gap-1">
-          <img src="/coins.png" alt="coins" class="h-6 w-6" />
-        </div>
-        <!-- Complete Button (without color) -->
-        <button
-          class="px-4 py-2 rounded-lg text-lg font-medium hover:bg-dark-green hover:text-beige transform transition-transform duration-300"
-          on:click={() => {
-            console.log(`${selectedChallenge.title} completed!`);
-            closeModal();
-          }}
-        >
-          Complete
-        </button>
-      </div>
+    <div class="mt-5 flex flex-col items-center">
+
+      <!-- Image Section -->
+      <img
+        src="../assets\images/Green.jpg"
+        alt="Green Landscape"
+        class="rounded-lg shadow-md w-300 h-40"
+      />
     </div>
   </div>
 </div>
@@ -135,9 +155,7 @@
     .bg-light-beige {
       background-color: #f5e6c8;
     }
-    .bg-green {
-      background-color: #3d6b35;
-    }
+
     .bg-beige {
       background-color: #e4d9b9;
     }
