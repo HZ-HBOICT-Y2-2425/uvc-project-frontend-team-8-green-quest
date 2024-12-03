@@ -5,16 +5,16 @@
 
     // Test items for the garden
     let items = [
-        { id: 1, src: "/assets/images/tree.png", x: 200, y: 100 },
-        { id: 2, src: "/assets/images/flower.png", x: 400, y: 300 },
+        { id: 1, src: "/assets/images/tree.png", x: 100, y: 140, category: "tree", heigth: "150", width: "70" },
+        { id: 2, src: "/assets/images/flower.png", x: 200, y: 290, category: "flower", heigth: "50", width: "70"  },
     ];
 
-    let width = 10000; // Background width
-    let heigth = 10000; // Background height
+    let width = 2000; // Background width
+    let heigth = 1000; // Background height
     let viewWidth = 340; // Container width
     let viewHeight = 400; // Container height
-    let offsetX = -width / 2; // Center horizontally
-    let offsetY = -heigth / 2; // Center vertically
+    let offsetX = 0; // Center horizontally
+    let offsetY = 0; // Center vertically
     let isPanning = false; // Flag to check if panning is active
     let startX = 0; // Initialize X position
     let startY = 0; // Initialize Y position
@@ -26,10 +26,6 @@
             event.type === "mousedown"
                 ? event.clientX
                 : event.touches[0].clientX;
-        startY =
-            event.type === "mousedown"
-                ? event.clientY
-                : event.touches[0].clientY;
     };
 
     // Handle mouse move or touch move for panning
@@ -40,25 +36,19 @@
             event.type === "mousemove"
                 ? event.clientX
                 : event.touches[0].clientX;
-        const currentY =
-            event.type === "mousemove"
-                ? event.clientY
-                : event.touches[0].clientY;
 
         const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
 
-        // Calculate new offsets
+        // Calculate new horizontal offset
         let newOffsetX = offsetX + deltaX;
-        let newOffsetY = offsetY + deltaY;
 
-        // Restrict offsets within the background boundaries
+        // Restrict horizontal offset within the background boundaries
         offsetX = Math.min(0, Math.max(newOffsetX, -(width - viewWidth)));
-        offsetY = Math.min(0, Math.max(newOffsetY, -(heigth - viewHeight)));
 
         // Update the start position for the next move
         startX = currentX;
-        startY = currentY;
+
+        // No need to update offsetY since vertical movement is ignored
     };
 
     // Stop panning
@@ -66,6 +56,7 @@
         isPanning = false;
     };
 </script>
+
 <div
     class="relative w-[340px] h-[400px] overflow-hidden border border-gray-300 rounded-2xl touch-none"
     on:mousedown|preventDefault={startPan}
@@ -77,16 +68,16 @@
     on:touchend={endPan}
 >
     <div
-        class="absolute w-[10000px] h-[10000px] bg-cover bg-repeat"
-        style="background-image: url('/assets/images/Green.jpg'); transform: translate({offsetX}px, {offsetY}px);"
+        class="absolute w-[2000px] h-[398px] bg-cover bg-repeat"
+        style="background-image: url('/assets/images/garden.png'); transform: translate({offsetX}px, {offsetY}px);"
     >
         <!-- Items in the garden -->
         {#each items as item (item.id)}
             <img
                 src={item.src}
                 alt="Garden Element"
-                class="absolute w-[50px] h-[50px]"
-                style="top: {item.y + (heigth / 2)}px; left: {item.x + (width / 2)}px;"
+                class="absolute w-[{item.width}px] h-[{item.heigth}px]"
+                style="top: {item.y}px; left: {item.x}px;"
             />
         {/each}
     </div>
