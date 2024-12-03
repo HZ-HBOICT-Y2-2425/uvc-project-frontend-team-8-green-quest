@@ -5,12 +5,12 @@
 
     // Test items for the garden
     let items = [
-        { id: 1, src: "/assets/images/tree.png", x: 200, y: 100 },
-        { id: 2, src: "/assets/images/flower.png", x: 400, y: 300 },
+        { id: 1, src: "/assets/images/tree.png", x: 100, y: 140, category: "tree", heigth: "150", width: "70" },
+        { id: 2, src: "/assets/images/flower.png", x: 200, y: 290, category: "flower", heigth: "50", width: "70"  },
     ];
 
-    let width = 10000; // Background width
-    let heigth = 10000; // Background height
+    let width = 2000; // Background width
+    let heigth = 1000; // Background height
     let viewWidth = 340; // Container width
     let viewHeight = 400; // Container height
     let offsetX = 0; // Center horizontally
@@ -68,15 +68,15 @@
     on:touchend={endPan}
 >
     <div
-        class="absolute w-[10000px] h-[10000px] bg-cover bg-repeat"
-        style="background-image: url('/assets/images/Green.jpg'); transform: translate({offsetX}px, {offsetY}px);"
+        class="absolute w-[2000px] h-[398px] bg-cover bg-repeat"
+        style="background-image: url('/assets/images/garden.png'); transform: translate({offsetX}px, {offsetY}px);"
     >
         <!-- Items in the garden -->
         {#each items as item (item.id)}
             <img
                 src={item.src}
                 alt="Garden Element"
-                class="absolute w-[50px] h-[50px]"
+                class="absolute w-[{item.width}px] h-[{item.heigth}px]"
                 style="top: {item.y}px; left: {item.x}px;"
             />
         {/each}
