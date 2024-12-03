@@ -5,12 +5,12 @@
 
     // Test items for the garden
     let items = [
-        { id: 1, src: "/assets/images/tree.png", x: 100, y: 140, category: "tree", heigth: "150", width: "70" },
-        { id: 2, src: "/assets/images/flower.png", x: 200, y: 290, category: "flower", heigth: "50", width: "70"  },
+        { id: 1, src: "/assets/images/tree.png", x: 100, y: 205 , category: "tree", height: "80", width: "70" },
+        { id: 2, src: "/assets/images/flower.png", x: 200, y: 290, category: "flower", height: "51", width: "70"  },
     ];
 
     let width = 2000; // Background width
-    let heigth = 1000; // Background height
+    let height = 1000; // Background height
     let viewWidth = 340; // Container width
     let viewHeight = 400; // Container height
     let offsetX = 0; // Center horizontally
@@ -76,8 +76,8 @@
             <img
                 src={item.src}
                 alt="Garden Element"
-                class="absolute w-[{item.width}px] h-[{item.heigth}px]"
-                style="top: {item.y}px; left: {item.x}px;"
+                class="absolute"
+                style="top: {item.y}px; left: {item.x}px; height: {item.height}px; width: {item.width}px"
             />
         {/each}
     </div>
