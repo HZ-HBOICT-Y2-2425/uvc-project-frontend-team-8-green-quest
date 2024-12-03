@@ -13,8 +13,8 @@
     let heigth = 10000; // Background height
     let viewWidth = 340; // Container width
     let viewHeight = 400; // Container height
-    let offsetX = -width / 2; // Center horizontally
-    let offsetY = -heigth / 2; // Center vertically
+    let offsetX = 0; // Center horizontally
+    let offsetY = 0; // Center vertically
     let isPanning = false; // Flag to check if panning is active
     let startX = 0; // Initialize X position
     let startY = 0; // Initialize Y position
@@ -26,10 +26,6 @@
             event.type === "mousedown"
                 ? event.clientX
                 : event.touches[0].clientX;
-        startY =
-            event.type === "mousedown"
-                ? event.clientY
-                : event.touches[0].clientY;
     };
 
     // Handle mouse move or touch move for panning
@@ -40,25 +36,19 @@
             event.type === "mousemove"
                 ? event.clientX
                 : event.touches[0].clientX;
-        const currentY =
-            event.type === "mousemove"
-                ? event.clientY
-                : event.touches[0].clientY;
 
         const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
 
-        // Calculate new offsets
+        // Calculate new horizontal offset
         let newOffsetX = offsetX + deltaX;
-        let newOffsetY = offsetY + deltaY;
 
-        // Restrict offsets within the background boundaries
+        // Restrict horizontal offset within the background boundaries
         offsetX = Math.min(0, Math.max(newOffsetX, -(width - viewWidth)));
-        offsetY = Math.min(0, Math.max(newOffsetY, -(heigth - viewHeight)));
 
         // Update the start position for the next move
         startX = currentX;
-        startY = currentY;
+
+        // No need to update offsetY since vertical movement is ignored
     };
 
     // Stop panning
@@ -66,6 +56,7 @@
         isPanning = false;
     };
 </script>
+
 <div
     class="relative w-[340px] h-[400px] overflow-hidden border border-gray-300 rounded-2xl touch-none"
     on:mousedown|preventDefault={startPan}
@@ -86,7 +77,7 @@
                 src={item.src}
                 alt="Garden Element"
                 class="absolute w-[50px] h-[50px]"
-                style="top: {item.y + (heigth / 2)}px; left: {item.x + (width / 2)}px;"
+                style="top: {item.y}px; left: {item.x}px;"
             />
         {/each}
     </div>
