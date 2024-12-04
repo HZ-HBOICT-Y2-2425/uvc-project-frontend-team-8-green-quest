@@ -21,12 +21,16 @@
   const completeTask = (task) => {
     console.log(`${task.title} completed! Saved ${task.CO2_reduction_kg}kg of CO2.`);
   };
+
+  function goBack() {
+    window.history.back();
+  }
 </script>
  
 <div class="bg-light-beige h-screen flex flex-col justify-between">
    <div class="flex items-center justify-center relative">
      <a href="/" class="absolute left-4">
-       <img src="/back.png" alt="Back" class="h-6 w-6" />
+       <img on:click={goBack} src="/back.png" alt="Back" class="h-6 w-6" />
      </a>
      <h1 class="text-black text-center text-2xl font-bold">TASKS</h1>
    </div>
