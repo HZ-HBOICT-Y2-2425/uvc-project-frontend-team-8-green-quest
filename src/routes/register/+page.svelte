@@ -1,5 +1,4 @@
 <script>
-    let name = '';
     let username = '';
     let password = '';
     let confirmPassword = '';
@@ -39,7 +38,7 @@
 
         if (validateForm()) {
             alert('Registration successful!');
-            console.log('Form submitted:', { name, username, password });
+            console.log('Form submitted:', { username, password });
         } else {
             console.error('Form errors:', errors);
         }
@@ -55,12 +54,6 @@
     <!-- Main Content -->
     <main class="bg-beige p-6 mx-4 mt-6 rounded-3xl shadow-lg text-dark-green flex-grow">
         <form on:submit={handleSubmit} class="space-y-4">
-            <!-- Name Field -->
-            <div class="flex flex-col">
-                <label for="name" class="text-lg font-bold mb-2">Name</label>
-                <input type="text" id="name" name="name" bind:value={name} placeholder="Enter your name"
-                    class="p-3 rounded-lg border-2 border-dark-green text-dark-green focus:outline-none focus:border-green" />
-            </div>
 
             <!-- Username Field -->
             <div class="flex flex-col">
