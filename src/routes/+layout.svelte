@@ -7,6 +7,7 @@
 </script>
 
 <div class="flex flex-col justify-between">
+
     <!-- Header -->
     {#if !isAuthRoute}
         <header class="bg-green flex justify-between p-3 w-full h-full">
@@ -20,6 +21,7 @@
             </button>
         </header>
     {/if}
+
 
     <!-- Main Content -->
     <main>
@@ -43,3 +45,4 @@
         </footer>
     {/if}
 </div>
+

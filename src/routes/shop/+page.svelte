@@ -1,12 +1,12 @@
 <script>
-// @ts-nocheck
+  // @ts-nocheck
 
-    import Shop from "$lib/components/Shop.svelte";
+  import Shop from "$lib/components/Shop.svelte";
 
-  let selectedCategory = "trees"; 
+  let selectedCategory = "trees";
 
   const selectCategory = (category) => {
-    selectedCategory = category; 
+    selectedCategory = category;
   };
   function goBack() {
     window.history.back();
@@ -16,7 +16,11 @@
 <div class="h-screen flex flex-col justify-between p-5">
   <div class="flex items-center justify-center relative">
     <a href="/" class="absolute left-4">
-      <img on:click={goBack} src="back.png" alt="Back" class="h-8 w-8 bg-orange-red rounded-full"
+      <img
+        on:click={goBack}
+        src="back.png"
+        alt="Back"
+        class="h-8 w-8 bg-orange-red rounded-full"
       />
     </a>
     <h1 class=" text-center text-2xl font-bold">SHOP</h1>
@@ -65,5 +69,4 @@
 </div>
 
 <style>
-
 </style>
