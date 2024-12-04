@@ -41,7 +41,7 @@
           <h2 class="text-2xl mt-1">{challenge.title}</h2>
           <div class="flex flex-row">
             <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-            <h2 class="text-2xl mt-1">{challenge.CO2_reduction_kg}</h2>
+            <h2 class="text-2xl mt-1">{challenge.coins}</h2>
           </div>
         </div>
       {/each}
@@ -123,14 +123,16 @@
     <!-- Button Section -->
     <div class="mt-5 flex flex-col items-center">
 
-      <!-- Image Section -->
-      <img
-        src="../assets\images/Green.jpg"
-        alt="Green Landscape"
-        class="rounded-lg shadow-md w-300 h-40"
-      />
+      
     </div>
   </div>
+
+  <!-- Image Section -->
+  <img
+  src="../assets\images/garden1.png"
+  alt="Green Landscape"
+  class="rounded-lg shadow-md w-128 h-fit"
+/>
 </div>
 
   <!-- Footer -->
