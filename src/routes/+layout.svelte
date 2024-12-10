@@ -2,6 +2,7 @@
     import "../app.css";
     import { page } from "$app/stores";
     import { co2saved } from "../co2saved";
+    import { coins } from "../coins";
 
     // Check if the current route is either /login or /register
     $: isAuthRoute = ['/login', '/register'].includes($page.url.pathname);
@@ -14,7 +15,7 @@
         <header class="bg-green flex justify-between p-3 w-full h-full">
             <div class="flex flex-row">
                 <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-                <h2 class="text-2xl mt-1">2</h2>
+                <h2 class="text-2xl mt-1">{$coins}</h2>
             </div>
             <h2 class="text-3xl mt-2">CO2: {$co2saved}</h2>
             <button id="profile">

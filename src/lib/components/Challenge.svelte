@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { co2saved } from '../../co2saved';
+    import { coins } from '../../coins';
   
     let challenges = [];
     let selectedChallenge = null; // Holds the selected challenge for the modal
@@ -37,6 +38,7 @@
         if (data.success) {
             // Update the global co2saved store with the new CO2 reduction
             co2saved.update(value => value + data.co2Reduction);
+            coins.update(value => value + data.coins);
             console.log('method executed');
             alert(data.message);
         } else {
@@ -88,7 +90,7 @@
   <header class="flex justify-between items-center p-3 w-full" style="background-color: rgb(141 137 43 / var(--tw-bg-opacity, 1));">
     <div class="flex flex-row items-center">
       <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-      <h2 class="text-2xl mt-1 ml-2">2</h2>
+      <h2 class="text-2xl mt-1 ml-2">{$coins}</h2>
     </div>
     <div class="flex-grow flex justify-center">
       <h2 class="text-3xl mt-1">CO2: {$co2saved}</h2>
