@@ -33,16 +33,42 @@
         return Object.keys(errors).length === 0; // Returns true if no errors
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    async function handleSubmit(event) {
+    event.preventDefault();
 
-        if (validateForm()) {
-            alert('Registration successful!');
-            console.log('Form submitted:', { username, password });
-        } else {
-            console.error('Form errors:', errors);
+    if (validateForm()) {
+        try {
+            // Construct the query string with username and password
+            const queryParams = new URLSearchParams({
+                username: username, // Replace with your actual username variable
+                password: password  // Replace with your actual password variable
+            });
+
+            // Make a GET or POST request to the backend with query parameters
+            const response = await fetch(`http://localhost:3010/users/register?${queryParams.toString()}`, {
+                method: 'POST', // Use POST if required by your backend, otherwise GET
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                alert('Registration successful!');
+                console.log('Response from server:', data);
+            } else {
+                const error = await response.json();
+                console.error('Registration failed:', error);
+                alert(`Error: ${error.message || 'Registration failed'}`);
+            }
+        } catch (error) {
+            console.error('Error making the request:', error);
+            alert('An error occurred while registering. Please try again.');
         }
+    } else {
+        console.error('Form errors:', errors);
     }
+}
 </script>
 
 <div class="flex flex-col min-h-screen">
