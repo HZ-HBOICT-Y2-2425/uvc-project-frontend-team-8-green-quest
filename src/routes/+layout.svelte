@@ -16,9 +16,11 @@
                 <h2 class="text-2xl mt-1">2</h2>
             </div>
             <h2 class="text-3xl mt-2">CO2: 55</h2>
+            <a href="/profile">
             <button id="profile">
                 <img src="/profile_icon.png" alt="profile" class="w-12 h-fit" />
             </button>
+        </a>
         </header>
     {/if}
 
