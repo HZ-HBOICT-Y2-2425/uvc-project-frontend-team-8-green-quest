@@ -33,7 +33,7 @@
 
     async function buyItem(id) {
         try {
-            const userId = 1; // retrieve the real user here
+            const userId = 11; // retrieve the real user here
     
             const response = await fetch(
                 `http://localhost:3010/users/purchase?userId=${userId}&itemId=${id}`,
@@ -50,7 +50,7 @@
             window.location.href = "/"; // Redirect to the main page
         } catch (error) {
             console.error("Error purchasing item:", error);
-            alert("Failed to purchase item. Please try again later.");
+            alert("Your coins are insufficient.");
         }
     }
 
