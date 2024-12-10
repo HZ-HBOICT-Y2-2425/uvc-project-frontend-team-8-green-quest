@@ -45,6 +45,12 @@
     }
 </script>
 
+
+<svelte:head>
+  <title>Register - Green Quest</title>
+</svelte:head>
+
+
 <div class="flex flex-col min-h-screen">
     <!-- Page Header -->
     <div class="flex items-center justify-center p-5">

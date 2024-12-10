@@ -4,6 +4,12 @@
     }
 </script>
 
+
+<svelte:head>
+  <title>Profile - Green Quest</title>
+</svelte:head>
+
+
 <div class="h-screen bg-light-beige flex flex-col justify-between p-5">
     <div class="flex items-center justify-center relative">
         <a href="/" class="absolute left-4">

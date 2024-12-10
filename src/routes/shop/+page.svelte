@@ -1,6 +1,5 @@
 <script>
   // @ts-nocheck
-
   import Shop from "$lib/components/Shop.svelte";
 
   let selectedCategory = "trees";
@@ -13,6 +12,11 @@
   }
 </script>
 
+<svelte:head>
+    <title>Shop - Green Quest</title>
+    <link rel="icon" href="/icon.png" type="image/png" />
+</svelte:head>
+
 <div class="h-screen flex flex-col justify-between p-5">
   <div class="flex items-center justify-center relative">
     <a href="/" class="absolute left-4">
@@ -23,7 +27,7 @@
         class="h-8 w-8 bg-orange-red rounded-full"
       />
     </a>
-    <h1 class=" text-center text-2xl font-bold">SHOP</h1>
+    <h1 class="text-center text-2xl font-bold">SHOP</h1>
   </div>
 
   <div class="flex-grow flex justify-center pt-10">

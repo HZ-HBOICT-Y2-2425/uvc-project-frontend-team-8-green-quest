@@ -54,3 +54,7 @@
         </details>
     </section>
 </div>
+
+<svelte:head>
+  <title>Info - Green Quest</title>
+</svelte:head>
