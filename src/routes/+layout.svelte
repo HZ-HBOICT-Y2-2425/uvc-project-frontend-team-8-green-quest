@@ -17,7 +17,7 @@
                 <img src="/coins.png" alt="coins" class="w-12 h-fit" />
                 <h2 class="text-2xl mt-1">{$coins}</h2>
             </div>
-            <h2 class="text-3xl mt-2">CO2: {$co2saved}</h2>
+            <h2 class="text-3xl mt-2">CO2: {$co2saved.toFixed(2)}</h2>
             <button id="profile">
                 <img src="/profile_icon.png" alt="profile" class="w-12 h-fit" />
             </button>

@@ -10,15 +10,32 @@
     let challengeID;
   
     async function fetchChallenges() {
-      try {
+    try {
         const response = await fetch('http://localhost:3010/challenges');
-        const data = await response.json();
-        challenges = data.sort(() => Math.random() - 0.5).slice(0, 3);
+        if (!response.ok) {
+            throw new Error('Failed to fetch challenges');
+        }
+
+        const allChallenges = await response.json();
+
+        const userResponse = await fetch('http://localhost:3010/challenges/status');
+        if (!userResponse.ok) {
+            throw new Error('Failed to fetch user challenge status');
+        }
+
+        const challengeStatus = await userResponse.json();
+
+        const incompleteChallenges = allChallenges.filter(
+          challenge => !challengeStatus.some(status => status.challengeID === challenge.challengeID && status.completed)
+        );
+
+        challenges = incompleteChallenges.sort(() => Math.random() - 0.5).slice(0, 3);
+
         console.log(challenges);
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching challenges:', error);
-      }
     }
+}
 
     async function complete(challengeID) {
     try {
@@ -40,7 +57,8 @@
             co2saved.update(value => value + data.co2Reduction);
             coins.update(value => value + data.coins);
             console.log('method executed');
-            alert(data.message);
+            //alert(data.message);
+            challenges = challenges.filter(challenge => challenge.challengeID !== challengeID);
         } else {
             alert(data.error || 'Challenge could not be completed');
         }
@@ -48,6 +66,24 @@
         console.error('Error completing challenge:', error);
     }
 }
+
+    async function getDailyChallenges() {
+    try {
+      const response = await fetch('http://localhost:3010/users/getDailyChallenges', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching daily challenges: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Daily challenges fetched successfully:", data);
+    } catch (error) {
+      console.error("Error fetching daily challenges:", error);
+    }
+  }
 
   
     const openModal = (challenge) => {
@@ -62,6 +98,7 @@
   
     onMount(() => {
       fetchChallenges();
+      getDailyChallenges();
     });
   </script>
   
@@ -93,7 +130,7 @@
       <h2 class="text-2xl mt-1 ml-2">{$coins}</h2>
     </div>
     <div class="flex-grow flex justify-center">
-      <h2 class="text-3xl mt-1">CO2: {$co2saved}</h2>
+      <h2 class="text-3xl mt-1">CO2: {$co2saved.toFixed(2)}</h2>
     </div>
     <button id="profile" class="ml-auto">
       <img src="/profile_icon.png" alt="profile" class="w-12 h-fit" />
