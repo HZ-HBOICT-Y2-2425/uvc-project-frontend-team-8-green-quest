@@ -27,11 +27,32 @@
     const filterItems = () => {
         items = shopData.filter(
             (item) =>
-                item.category.toLowerCase() ===
-                selectedCategory.toLowerCase(),
+                item.category.toLowerCase() === selectedCategory.toLowerCase(),
         );
     };
 
+    async function buyItem(id) {
+        try {
+            const userId = 1; // retrieve the real user here
+    
+            const response = await fetch(
+                `http://localhost:3010/users/purchase?userId=${userId}&itemId=${id}`,
+                {
+                    method: "POST",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to purchase item");
+            }
+
+            const result = await response.json();
+            window.location.href = "/"; // Redirect to the main page
+        } catch (error) {
+            console.error("Error purchasing item:", error);
+            alert("Failed to purchase item. Please try again later.");
+        }
+    }
 
     // Reactively call filterItems when selectedCategory changes
     $: if (shopData.length > 0 && selectedCategory) {
@@ -39,18 +60,16 @@
     }
 </script>
 
-
-
 <div class="grid grid-cols-2">
     {#if isLoading}
         <p>Loading...</p>
     {:else if items.length === 0}
         <p>No items found for this category.</p>
     {:else}
-        {#each items as { id, name, path, price, level_required }}
+        {#each items as { itemID, name, path, price, level_required }}
             <div
                 class="flex flex-col items-center justify-between shadow-md rounded-lg p-1"
-                key={id}
+                key={itemID}
             >
                 <!-- Image -->
                 <img
@@ -61,10 +80,10 @@
                 <div class="bg-orange-red w-fit p-2 mt-2 rounded-lg">
                     <p class="text-center text-base">{name}</p>
                     <!-- Coins -->
-                    <div class="flex gap-1">
+                    <button class="flex gap-1" on:click={() => buyItem(itemID)}>
                         <img src="/coins.png" alt="coins" class="h-4 w-4" />
                         <span class="text-center text-base">{price}</span>
-                    </div>
+                    </button>
                 </div>
             </div>
         {/each}
