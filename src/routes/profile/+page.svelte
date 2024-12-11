@@ -5,7 +5,6 @@
     function goBack() {
         window.history.back();
     }
-
     let profileData = []; // Store all items
     let users = [];
     let isLoading = true;
@@ -30,7 +29,7 @@
     <div class="flex flex-row justify-between relative">
         <a href="/" class="">
             <img
-                on:click={goBack}
+                onclick="goBack()"
                 src="back.png"
                 alt="Back"
                 class="h-8 w-8 bg-orange-red rounded-full"
