@@ -3,6 +3,8 @@
     import { onMount } from "svelte";
     import "../app.css";
     import { page } from "$app/stores";
+    import { co2saved } from "../co2saved";
+    import { coins } from "../coins";
 
     // Check if the current route is either /login or /register
     $: isAuthRoute = ["/login", "/register"].includes($page.url.pathname);
