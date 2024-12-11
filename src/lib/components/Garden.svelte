@@ -1,13 +1,41 @@
 <script>
     // @ts-nocheck
+    import { onMount } from "svelte";
 
     import "../../app.css";
 
-    // Test items for the garden
-    let items = [
-        { id: 1, src: "/assets/images/tree.png", x: 100, y: 205 , category: "tree", height: "80", width: "70" },
-        { id: 2, src: "/assets/images/flower.png", x: 200, y: 290, category: "flower", height: "51", width: "70"  },
-    ];
+    let items = [];
+    let images = [];
+    let isLoading = true; // Set loading flag initially to true
+
+    onMount(async () => {
+        const userId = 11; // retrieve the real user here
+
+        try {
+            const response = await fetch(
+                `http://localhost:3010/users/userItems?userId=${userId}`,
+                { method: "GET" },
+            );
+            const data = await response.json();
+            items = data.purchases || [];
+        } catch (error) {
+            console.error("Failed to fetch shop data:", error);
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3010/items`, {
+                method: "GET",
+            });
+            const data = await response.json();
+            images = data.data || [];
+            console.log(images[19]);
+            console.log(images[18]); // Log the images after fetching
+        } catch (error) {
+            console.error("Failed to fetch images data:", error);
+        } finally {
+            isLoading = false; // Set loading flag to false when data is fetched
+        }
+    });
 
     let width = 2000; // Background width
     let height = 1000; // Background height
@@ -19,7 +47,6 @@
     let startX = 0; // Initialize X position
     let startY = 0; // Initialize Y position
 
-    // Handle mouse down or touch start
     const startPan = (event) => {
         isPanning = true;
         startX =
@@ -28,7 +55,6 @@
                 : event.touches[0].clientX;
     };
 
-    // Handle mouse move or touch move for panning
     const pan = (event) => {
         if (!isPanning) return;
 
@@ -39,19 +65,13 @@
 
         const deltaX = currentX - startX;
 
-        // Calculate new horizontal offset
         let newOffsetX = offsetX + deltaX;
 
-        // Restrict horizontal offset within the background boundaries
         offsetX = Math.min(0, Math.max(newOffsetX, -(width - viewWidth)));
 
-        // Update the start position for the next move
         startX = currentX;
-
-        // No need to update offsetY since vertical movement is ignored
     };
 
-    // Stop panning
     const endPan = () => {
         isPanning = false;
     };
@@ -71,14 +91,27 @@
         class="absolute w-[2000px] h-[398px] bg-cover bg-repeat"
         style="background-image: url('/assets/images/garden.png'); transform: translate({offsetX}px, {offsetY}px);"
     >
-        <!-- Items in the garden -->
-        {#each items as item (item.id)}
-            <img
-                src={item.src}
-                alt="Garden Element"
-                class="absolute"
-                style="top: {item.y}px; left: {item.x}px; height: {item.height}px; width: {item.width}px"
-            />
-        {/each}
+        <!-- Ensure images are loaded before rendering -->
+        {#if !isLoading}
+            <!-- Items in the garden -->
+            {#each items as item}
+                {console.log("Item ID:", item.itemID)}
+                <!-- Log itemID -->
+                {#if images[item.itemID - 1]}
+                    <img
+                        src={images[item.itemID - 1].path}
+                        alt="Garden Element"
+                        class="absolute"
+                        style="top: {item.posY}px; left: {item.posX}px; height: {item.height}px; width: {item.width}px"
+                    />
+                {:else}
+                    <!-- Fallback or placeholder if image is not available -->
+                    <p>Image not found for item {item.itemID}</p>
+                {/if}
+            {/each}
+        {:else}
+            <!-- Show loading indicator while data is being fetched -->
+            <p>Loading...</p>
+        {/if}
     </div>
 </div>

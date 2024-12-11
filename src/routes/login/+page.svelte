@@ -23,16 +23,45 @@
         return Object.keys(errors).length === 0; // Returns true if no errors
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    async function handleSubmit(event) {
+    event.preventDefault();
 
-        if (validateForm()) {
-            alert('Login successful!');
-            console.log('Form submitted:', { username, password });
-        } else {
-            console.error('Form errors:', errors);
+    if (validateForm()) {
+        try {
+            // Construct the query string for username and password
+            const queryParams = new URLSearchParams({
+                username: username, // Replace with the username variable
+                password: password  // Replace with the password variable
+            });
+
+            // Make a POST request to the login endpoint with query parameters
+            const response = await fetch(`http://localhost:3010/users/login?${queryParams.toString()}`, {
+                method: 'POST', // Use POST for authentication
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                alert('Login successful!');
+                console.log('Response from server:', data);
+
+                // Redirect to the main page
+                window.location.href = '/'; // Replace '/main' with your actual main page route
+            } else {
+                const error = await response.json();
+                console.error('Login failed:', error);
+                alert(`Error: ${error.message || 'Login failed'}`);
+            }
+        } catch (error) {
+            console.error('Error making the request:', error);
+            alert('An error occurred while logging in. Please try again.');
         }
+    } else {
+        console.error('Form errors:', errors);
     }
+}
 </script>
 
 <div class="flex flex-col min-h-screen">
