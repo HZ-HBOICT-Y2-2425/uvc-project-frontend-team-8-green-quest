@@ -31,6 +31,7 @@
         }
 
         return Object.keys(errors).length === 0; // Returns true if no errors
+
     }
 
     async function handleSubmit(event) {
@@ -56,6 +57,7 @@
                 const data = await response.json();
                 alert('Registration successful!');
                 console.log('Response from server:', data);
+                window.location.href = '/';
             } else {
                 const error = await response.json();
                 console.error('Registration failed:', error);
