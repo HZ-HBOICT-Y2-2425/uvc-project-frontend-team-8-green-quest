@@ -1,38 +1,60 @@
 <script>
     // @ts-nocheck
+    import { onMount } from "svelte";
 
     import "../../app.css";
 
-    // Test items for the garden
-    let items = [
-        { id: 1, src: "/assets/images/tree.png", x: 200, y: 100 },
-        { id: 2, src: "/assets/images/flower.png", x: 400, y: 300 },
-    ];
+    let items = [];
+    let images = [];
+    let isLoading = true; // Set loading flag initially to true
 
-    let width = 10000; // Background width
-    let heigth = 10000; // Background height
+    onMount(async () => {
+        const userId = 1; // retrieve the real user here
+
+        try {
+            const response = await fetch(
+                `http://localhost:3010/users/userItems?userId=${userId}`,
+                { method: "GET" },
+            );
+            const data = await response.json();
+            items = data.purchases || [];
+        } catch (error) {
+            console.error("Failed to fetch shop data:", error);
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3010/items`, {
+                method: "GET",
+            });
+            const data = await response.json();
+            images = data.data || [];
+            console.log(images[19]);
+            console.log(images[18]); // Log the images after fetching
+        } catch (error) {
+            console.error("Failed to fetch images data:", error);
+        } finally {
+            isLoading = false; // Set loading flag to false when data is fetched
+        }
+    });
+
+    let width = 2000; // Background width
+    let height = 1000; // Background height
     let viewWidth = 340; // Container width
     let viewHeight = 400; // Container height
-    let offsetX = -width / 2; // Center horizontally
-    let offsetY = -heigth / 2; // Center vertically
+    let offsetX = 0; // Center horizontally
+    let offsetY = 0; // Center vertically
     let isPanning = false; // Flag to check if panning is active
     let startX = 0; // Initialize X position
     let startY = 0; // Initialize Y position
 
-    // Handle mouse down or touch start
     const startPan = (event) => {
         isPanning = true;
         startX =
             event.type === "mousedown"
                 ? event.clientX
                 : event.touches[0].clientX;
-        startY =
-            event.type === "mousedown"
-                ? event.clientY
-                : event.touches[0].clientY;
     };
 
-    // Handle mouse move or touch move for panning
     const pan = (event) => {
         if (!isPanning) return;
 
@@ -40,32 +62,21 @@
             event.type === "mousemove"
                 ? event.clientX
                 : event.touches[0].clientX;
-        const currentY =
-            event.type === "mousemove"
-                ? event.clientY
-                : event.touches[0].clientY;
 
         const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
 
-        // Calculate new offsets
         let newOffsetX = offsetX + deltaX;
-        let newOffsetY = offsetY + deltaY;
 
-        // Restrict offsets within the background boundaries
         offsetX = Math.min(0, Math.max(newOffsetX, -(width - viewWidth)));
-        offsetY = Math.min(0, Math.max(newOffsetY, -(heigth - viewHeight)));
 
-        // Update the start position for the next move
         startX = currentX;
-        startY = currentY;
     };
 
-    // Stop panning
     const endPan = () => {
         isPanning = false;
     };
 </script>
+
 <div
     class="relative w-[340px] h-[400px] overflow-hidden border border-gray-300 rounded-2xl touch-none"
     on:mousedown|preventDefault={startPan}
@@ -77,17 +88,30 @@
     on:touchend={endPan}
 >
     <div
-        class="absolute w-[10000px] h-[10000px] bg-cover bg-repeat"
-        style="background-image: url('/assets/images/Green.jpg'); transform: translate({offsetX}px, {offsetY}px);"
+        class="absolute w-[2000px] h-[398px] bg-cover bg-repeat"
+        style="background-image: url('/assets/images/garden.png'); transform: translate({offsetX}px, {offsetY}px);"
     >
-        <!-- Items in the garden -->
-        {#each items as item (item.id)}
-            <img
-                src={item.src}
-                alt="Garden Element"
-                class="absolute w-[50px] h-[50px]"
-                style="top: {item.y + (heigth / 2)}px; left: {item.x + (width / 2)}px;"
-            />
-        {/each}
+        <!-- Ensure images are loaded before rendering -->
+        {#if !isLoading}
+            <!-- Items in the garden -->
+            {#each items as item}
+                {console.log("Item ID:", item.itemID)}
+                <!-- Log itemID -->
+                {#if images[item.itemID - 1]}
+                    <img
+                        src={images[item.itemID - 1].path}
+                        alt="Garden Element"
+                        class="absolute"
+                        style="top: {item.posY}px; left: {item.posX}px; height: {item.height}px; width: {item.width}px"
+                    />
+                {:else}
+                    <!-- Fallback or placeholder if image is not available -->
+                    <p>Image not found for item {item.itemID}</p>
+                {/if}
+            {/each}
+        {:else}
+            <!-- Show loading indicator while data is being fetched -->
+            <p>Loading...</p>
+        {/if}
     </div>
 </div>
