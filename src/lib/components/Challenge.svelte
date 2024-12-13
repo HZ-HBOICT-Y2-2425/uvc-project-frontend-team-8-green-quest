@@ -1,19 +1,90 @@
 <script>
     import { onMount } from 'svelte';
+    import { co2saved } from '../../co2saved';
+    import { coins } from '../../coins';
   
     let challenges = [];
     let selectedChallenge = null; // Holds the selected challenge for the modal
     let showModal = false; // Controls whether the modal is visible
+    let userID;
+    let challengeID;
   
     async function fetchChallenges() {
-      try {
+    try {
         const response = await fetch('http://localhost:3010/challenges');
-        const data = await response.json();
-        challenges = data.sort(() => Math.random() - 0.5).slice(0, 3);
-      } catch (error) {
+        if (!response.ok) {
+            throw new Error('Failed to fetch challenges');
+        }
+
+        const allChallenges = await response.json();
+
+        const userResponse = await fetch('http://localhost:3010/challenges/status');
+        if (!userResponse.ok) {
+            throw new Error('Failed to fetch user challenge status');
+        }
+
+        const challengeStatus = await userResponse.json();
+
+        const incompleteChallenges = allChallenges.filter(
+          challenge => !challengeStatus.some(status => status.challengeID === challenge.challengeID && status.completed)
+        );
+
+        challenges = incompleteChallenges.sort(() => Math.random() - 0.5).slice(0, 3);
+
+        console.log(challenges);
+    } catch (error) {
         console.error('Error fetching challenges:', error);
-      }
     }
+}
+
+    async function complete(challengeID) {
+    try {
+        // Call the backend API with only the challengeID in the URL (no need to pass it in the body)
+        const response = await fetch(`http://localhost:3010/challenges/complete/${challengeID}`, {
+            method: 'GET',  // Use GET as we're not sending any data in the body
+            headers: { 'Content-Type': 'application/json' }  // No need to send a body
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to complete challenge');
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        if (data.success) {
+            // Update the global co2saved store with the new CO2 reduction
+            co2saved.update(value => value + data.co2Reduction);
+            coins.update(value => value + data.coins);
+            console.log('method executed');
+            //alert(data.message);
+            challenges = challenges.filter(challenge => challenge.challengeID !== challengeID);
+        } else {
+            alert(data.error || 'Challenge could not be completed');
+        }
+    } catch (error) {
+        console.error('Error completing challenge:', error);
+    }
+}
+
+    async function getDailyChallenges() {
+    try {
+      const response = await fetch('http://localhost:3010/users/getDailyChallenges', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching daily challenges: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Daily challenges fetched successfully:", data);
+    } catch (error) {
+      console.error("Error fetching daily challenges:", error);
+    }
+  }
+
   
     const openModal = (challenge) => {
       selectedChallenge = challenge;
@@ -27,6 +98,7 @@
   
     onMount(() => {
       fetchChallenges();
+      getDailyChallenges();
     });
   </script>
   
@@ -55,10 +127,10 @@
   <header class="flex justify-between items-center p-3 w-full" style="background-color: rgb(141 137 43 / var(--tw-bg-opacity, 1));">
     <div class="flex flex-row items-center">
       <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-      <h2 class="text-2xl mt-1 ml-2">2</h2>
+      <h2 class="text-2xl mt-1 ml-2">{$coins}</h2>
     </div>
     <div class="flex-grow flex justify-center">
-      <h2 class="text-3xl mt-1">CO2: 55</h2>
+      <h2 class="text-3xl mt-1">CO2: {$co2saved.toFixed(2)}</h2>
     </div>
     <button id="profile" class="ml-auto">
       <img src="/profile_icon.png" alt="profile" class="w-12 h-fit" />
@@ -109,9 +181,10 @@
     class="flex items-center px-4 py-2 rounded-lg text-lg font-bold bg-green shadow-md"
     on:click={() => {
       console.log(`${selectedChallenge.title} completed!`);
-      closeModal();
-    }}
-  >
+      complete(selectedChallenge.challengeID); 
+      closeModal(); 
+  }}
+    >
     <!-- Complete Text -->
     <span class="mr-3">Complete</span>
     <!-- Coin Image and Reward -->
