@@ -9,7 +9,7 @@
     let isLoading = true; // Set loading flag initially to true
 
     onMount(async () => {
-        const userId = 11; // retrieve the real user here
+        const userId = 1; // retrieve the real user here
 
         try {
             const response = await fetch(

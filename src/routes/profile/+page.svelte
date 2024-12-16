@@ -29,7 +29,7 @@
     <div class="flex flex-row justify-between relative">
         <a href="/" class="">
             <img
-                onclick="goBack()"
+                onclick="{goBack()}"
                 src="back.png"
                 alt="Back"
                 class="h-8 w-8 bg-orange-red rounded-full"

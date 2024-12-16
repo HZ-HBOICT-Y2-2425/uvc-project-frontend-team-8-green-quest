@@ -27,6 +27,7 @@
             isLoading = false;
         }
     });
+    console.log(profileData);
 </script>
 
 <div class="flex flex-col justify-between">
