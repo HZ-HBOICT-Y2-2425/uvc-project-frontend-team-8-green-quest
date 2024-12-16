@@ -28,6 +28,7 @@
             });
             const data = await response.json();
             images = data.data || [];
+            images = images[0];
             console.log(images[19]);
             console.log(images[18]); // Log the images after fetching
         } catch (error) {
