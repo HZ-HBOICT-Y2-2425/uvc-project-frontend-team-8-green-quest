@@ -15,6 +15,7 @@
             const response = await fetch("http://localhost:3010/items");
             const data = await response.json();
             shopData = data.data || [];
+            shopData = shopData[0];
             filterItems(); // Filter items after fetching
         } catch (error) {
             console.error("Failed to fetch shop data:", error);
@@ -47,6 +48,7 @@
             }
 
             const result = await response.json();
+            console.log(result);
             window.location.href = "/"; // Redirect to the main page
         } catch (error) {
             console.error("Error purchasing item:", error);

@@ -16,7 +16,9 @@
             throw new Error('Failed to fetch challenges');
         }
 
-        const allChallenges = await response.json();
+        const alChallenges = await response.json();
+
+        const allChallenges = alChallenges.data;
 
         const userResponse = await fetch('http://localhost:3010/challenges/status');
         if (!userResponse.ok) {
