@@ -1,6 +1,6 @@
 # Green Quest Frontend
 
-## Overview
+## Overview 
 The **Green Quest Frontend** is the user-facing interface for the Green Quest application. It encourages young adults to adopt sustainable habits through gamification, delivering personalized challenges, virtual rewards, and social features to motivate users to reduce their CO2 emissions.
 
 This frontend project is built using **SvelteKit** to create an interactive and responsive user experience.
