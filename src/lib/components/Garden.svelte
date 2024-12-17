@@ -29,8 +29,6 @@
             const data = await response.json();
             images = data.data || [];
             images = images[0];
-            console.log(images[19]);
-            console.log(images[18]); // Log the images after fetching
         } catch (error) {
             console.error("Failed to fetch images data:", error);
         } finally {
@@ -96,7 +94,6 @@
         {#if !isLoading}
             <!-- Items in the garden -->
             {#each items as item}
-                {console.log("Item ID:", item.itemID)}
                 <!-- Log itemID -->
                 {#if images[item.itemID - 1]}
                     <img
