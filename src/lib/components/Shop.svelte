@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { checkAuth } from "../../userAuth";
 
     export let selectedCategory = "trees";
 
@@ -10,6 +11,7 @@
 
     // Fetch the data only once when the component mounts
     onMount(async () => {
+        checkAuth();
         isLoading = true;
         try {
             const response = await fetch("http://localhost:3010/items");
@@ -34,8 +36,8 @@
 
     async function buyItem(id) {
         try {
-            const userId = 1; // retrieve the real user here
-    
+            const userId = localStorage.getItem("userId");
+
             const response = await fetch(
                 `http://localhost:3010/users/purchase?userId=${userId}&itemId=${id}`,
                 {

@@ -1,12 +1,9 @@
 <script>
     import { goto } from "$app/navigation";
-    import { userId } from "../../userId";
 
     let username = "";
     let password = "";
     let errors = {};
-
-    $: currentUserId = $userId;
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -27,8 +24,8 @@
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("token", data.token); // Save the token for later requests
-                currentUserId = data.userId;
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("userId", data.userId);
                 alert("Login successful!");
                 goto("/profile"); // Redirect to profile page
             } else {

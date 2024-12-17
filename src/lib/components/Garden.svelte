@@ -1,9 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
-    import { userId } from "../../userId";
-
-    $: currentUserId = $userId;
+    import { checkAuth } from "../../userAuth"; // Import the checkAuth function
 
     import "../../app.css";
 
@@ -12,7 +10,8 @@
     let isLoading = true; // Set loading flag initially to true
 
     onMount(async () => {
-        const userId = currentUserId; // retrieve the real user here
+        checkAuth();
+        const userId = localStorage.getItem("userId");
         console.log(userId);
 
         try {

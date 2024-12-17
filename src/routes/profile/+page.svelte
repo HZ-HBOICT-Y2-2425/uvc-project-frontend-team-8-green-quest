@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
+    import { checkAuth } from "../../userAuth";
 
     // Navigate back
     function goBack() {
@@ -12,6 +13,7 @@
 
     // Fetch profile data with token validation
     onMount(async () => {
+        checkAuth();
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -47,7 +49,7 @@
 
     // Logout function
     function logout() {
-        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         goto("/");
     }
 </script>
