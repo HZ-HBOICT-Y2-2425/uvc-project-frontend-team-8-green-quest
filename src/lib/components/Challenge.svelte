@@ -28,7 +28,9 @@
         const challengeStatus = await userResponse.json();
 
         const incompleteChallenges = allChallenges.filter(
-          challenge => !challengeStatus.some(status => status.challengeID === challenge.challengeID && status.completed)
+            challenge => !challengeStatus.some(
+                status => status.challengeID === challenge.challengeID && status.completed
+            )
         );
 
         challenges = incompleteChallenges.sort(() => Math.random() - 0.5).slice(0, 3);
