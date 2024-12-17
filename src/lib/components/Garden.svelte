@@ -1,6 +1,9 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { userId } from "../../userId";
+
+    $: currentUserId = $userId;
 
     import "../../app.css";
 
@@ -9,7 +12,8 @@
     let isLoading = true; // Set loading flag initially to true
 
     onMount(async () => {
-        const userId = 1; // retrieve the real user here
+        const userId = currentUserId; // retrieve the real user here
+        console.log(userId);
 
         try {
             const response = await fetch(

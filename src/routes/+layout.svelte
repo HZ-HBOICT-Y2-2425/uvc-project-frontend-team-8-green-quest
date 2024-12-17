@@ -16,11 +16,17 @@
     // Fetch the data only once when the component mounts
     onMount(async () => {
         isLoading = true;
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            goto("/"); // Redirect to login page if no token
+            return;
+        }
         try {
             const response = await fetch("http://localhost:3010/users/profile");
             const data = await response.json();
-            profileData = data.results || [];
-            console.log(data);
+            profileData = data.profile || [];
+            console.log(profileData);
         } catch (error) {
             console.error("Failed to fetch profile data:", error);
         } finally {
@@ -36,12 +42,11 @@
             {#if isLoading}
                 <p>Loading...</p>
             {:else}
-                {#each profileData as { coins, co2Saved }}
                 <div class="flex flex-row">
                     <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-                    <h2 class="text-2xl mt-1">{coins}</h2>
+                    <h2 class="text-2xl mt-1">{profileData.coins}</h2>
                 </div>
-                <h2 class="text-3xl mt-2">CO2: {co2Saved} kg</h2>
+                <h2 class="text-3xl mt-2">CO2: {profileData.co2Saved} kg</h2>
                 <a href="/profile">
                     <button id="profile">
                         <img
@@ -51,7 +56,6 @@
                         />
                     </button>
                 </a>
-                {/each}
             {/if}
         </header>
     {/if}

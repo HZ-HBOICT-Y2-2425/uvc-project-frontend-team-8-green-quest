@@ -1,9 +1,12 @@
 <script>
     import { goto } from "$app/navigation";
+    import { userId } from "../../userId";
 
-    let username = '';
-    let password = '';
+    let username = "";
+    let password = "";
     let errors = {};
+
+    $: currentUserId = $userId;
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -11,26 +14,31 @@
         try {
             const queryParams = new URLSearchParams({
                 username: username, // Inputted username
-                password: password  // Inputted password
+                password: password, // Inputted password
             });
 
-            const response = await fetch(`http://localhost:3010/users/login?${queryParams.toString()}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
+            const response = await fetch(
+                `http://localhost:3010/users/login?${queryParams.toString()}`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('token', data.token); // Save the token for later requests
-                alert('Login successful!');
-                goto('/profile'); // Redirect to profile page
+                localStorage.setItem("token", data.token); // Save the token for later requests
+                currentUserId = data.userId;
+                alert("Login successful!");
+                goto("/profile"); // Redirect to profile page
             } else {
                 const error = await response.json();
-                errors.general = error.message || 'Login failed. Please try again.';
+                errors.general =
+                    error.message || "Login failed. Please try again.";
             }
         } catch (error) {
-            console.error('Error during login:', error);
-            errors.general = 'An error occurred. Please try again.';
+            console.error("Error during login:", error);
+            errors.general = "An error occurred. Please try again.";
         }
     }
 </script>

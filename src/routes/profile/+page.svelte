@@ -35,7 +35,6 @@
             } else {
                 console.error("Failed to fetch profile data");
                 alert("Session expired, please log in again.");
-                localStorage.removeItem("token");
                 goto("/");
             }
         } catch (error) {
