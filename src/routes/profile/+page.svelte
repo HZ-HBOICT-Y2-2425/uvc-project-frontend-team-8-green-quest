@@ -14,22 +14,11 @@
     // Fetch profile data with token validation
     onMount(async () => {
         checkAuth();
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-            goto("/"); // Redirect to login page if no token
-            return;
-        }
+        const userId = sessionStorage.getItem("userId");
 
         isLoading = true;
         try {
-            const response = await fetch("http://localhost:3010/users/profile", {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
+            const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -49,7 +38,7 @@
 
     // Logout function
     function logout() {
-        localStorage.removeItem("userId");
+        sessionStorage.removeItem("userId");
         goto("/");
     }
 </script>

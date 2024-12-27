@@ -11,7 +11,7 @@
 
   async function fetchChallenges() {
     try {
-      userId = localStorage.getItem("userId");
+      userId = sessionStorage.getItem("userId");
 
       const response = await fetch("http://localhost:3010/challenges");
       if (!response.ok) {
@@ -51,7 +51,7 @@
 
   async function complete(challengeID) {
     try {
-      userId = localStorage.getItem("userId");
+      userId = sessionStorage.getItem("userId");
       // Call the backend API with only the challengeID in the URL (no need to pass it in the body)
       const response = await fetch(
         `http://localhost:3010/challenges/complete/${challengeID}?userId=${userId}`,
@@ -86,7 +86,7 @@
   }
 
   async function getDailyChallenges() {
-    userId = localStorage.getItem("userId");
+    userId = sessionStorage.getItem("userId");
     try {
       const response = await fetch(
         `http://localhost:3010/users/getDailyChallenges?userId=${userId}`,

@@ -11,7 +11,7 @@
 
     onMount(async () => {
         checkAuth();
-        const userId = localStorage.getItem("userId");
+        const userId = sessionStorage.getItem("userId");
         console.log(userId);
 
         try {

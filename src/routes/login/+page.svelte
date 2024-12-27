@@ -21,13 +21,14 @@
                     headers: { "Content-Type": "application/json" },
                 },
             );
+            console.log(response);
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("userId", data.userId);
+                sessionStorage.setItem("userId", data.userId);
+                console.log(sessionStorage.getItem('userId'));
                 alert("Login successful!");
-                goto("/profile"); // Redirect to profile page
+                goto("/"); // Redirect to main page
             } else {
                 const error = await response.json();
                 errors.general =

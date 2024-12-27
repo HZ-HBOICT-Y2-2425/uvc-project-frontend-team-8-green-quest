@@ -16,14 +16,10 @@
     // Fetch the data only once when the component mounts
     onMount(async () => {
         isLoading = true;
-        const token = localStorage.getItem("token");
+        const userId = sessionStorage.getItem("userId");
 
-        if (!token) {
-            goto("/"); // Redirect to login page if no token
-            return;
-        }
         try {
-            const response = await fetch("http://localhost:3010/users/profile");
+            const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
             const data = await response.json();
             profileData = data.profile || [];
             console.log(profileData);

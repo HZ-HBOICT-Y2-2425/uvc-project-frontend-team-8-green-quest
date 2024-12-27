@@ -36,7 +36,7 @@
 
     async function buyItem(id) {
         try {
-            const userId = localStorage.getItem("userId");
+            const userId = sessionStorage.getItem("userId");
 
             const response = await fetch(
                 `http://localhost:3010/users/purchase?userId=${userId}&itemId=${id}`,
