@@ -21,9 +21,9 @@
         try {
             const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
             const data = await response.json();
-            profileData = data.results || [];
-            coins.set(profileData[0].coins);
-            co2saved.set(profileData[0].co2Saved)
+            profileData = data.profile || [];
+            coins.set(profileData.coins);
+            co2saved.set(profileData.co2Saved)
         } catch (error) {
             console.error("Failed to fetch profile data:", error);
         } finally {

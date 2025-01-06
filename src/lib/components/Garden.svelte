@@ -12,7 +12,6 @@
     onMount(async () => {
         checkAuth();
         const userId = sessionStorage.getItem("userId");
-        console.log(userId);
 
         try {
             const response = await fetch(

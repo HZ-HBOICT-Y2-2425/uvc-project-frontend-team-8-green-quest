@@ -1,4 +1,5 @@
 <script>
+  // @ts-nocheck
   import { onMount } from "svelte";
   import { co2saved } from "../../co2saved";
   import { coins } from "../../coins";
