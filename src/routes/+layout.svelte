@@ -10,7 +10,7 @@
     $: isAuthRoute = ["/login", "/register"].includes($page.url.pathname);
 
     let profileData = []; // Store all items
-    let users = []; 
+    let users = [];
     let isLoading = true;
 
     // Fetch the data only once when the component mounts
@@ -21,8 +21,9 @@
         try {
             const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
             const data = await response.json();
-            profileData = data.profile || [];
-            console.log(profileData);
+            profileData = data.results || [];
+            coins.set(profileData[0].coins);
+            co2saved.set(profileData[0].co2Saved)
         } catch (error) {
             console.error("Failed to fetch profile data:", error);
         } finally {
@@ -40,9 +41,11 @@
             {:else}
                 <div class="flex flex-row">
                     <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-                    <h2 class="text-2xl mt-1">{profileData.coins}</h2>
+
+                    <h2 class="text-2xl mt-1">{$coins}</h2>
                 </div>
-                <h2 class="text-3xl mt-2">CO2: {profileData.co2Saved} kg</h2>
+                <h2 class="text-3xl mt-2">CO2: {$co2saved.toFixed(2)} kg</h2>
+
                 <a href="/profile">
                     <button id="profile">
                         <img
