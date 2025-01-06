@@ -43,6 +43,8 @@
       challenges = incompleteChallenges
         .sort(() => Math.random() - 0.5)
         .slice(0, 3);
+
+      console.log(challenges);
     } catch (error) {
       console.error("Error fetching challenges:", error);
     }

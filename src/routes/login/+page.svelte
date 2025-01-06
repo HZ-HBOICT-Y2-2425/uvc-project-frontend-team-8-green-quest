@@ -1,114 +1,87 @@
 <script>
-    let username = '';
-    let password = '';
-    let errors = {}; // Object to store error messages
+    import { goto } from "$app/navigation";
 
-    function validateForm() {
-        errors = {};
-
-        // Username validation
-        if (!username.trim()) {
-            errors.username = 'Username is required.';
-        } else if (username.length < 4) {
-            errors.username = 'Username must be at least 4 characters long.';
-        }
-
-        // Password validation
-        if (!password.trim()) {
-            errors.password = 'Password is required.';
-        } else if (password.length < 6) {
-            errors.password = 'Password must be at least 6 characters long.';
-        }
-
-        return Object.keys(errors).length === 0; // Returns true if no errors
-    }
+    let username = "";
+    let password = "";
+    let errors = {};
 
     async function handleSubmit(event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    if (validateForm()) {
         try {
-            // Construct the query string for username and password
             const queryParams = new URLSearchParams({
-                username: username, // Replace with the username variable
-                password: password  // Replace with the password variable
+                username: username, // Inputted username
+                password: password, // Inputted password
             });
 
-            // Make a POST request to the login endpoint with query parameters
-            const response = await fetch(`http://localhost:3010/users/login?${queryParams.toString()}`, {
-                method: 'POST', // Use POST for authentication
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+            const response = await fetch(
+                `http://localhost:3010/users/login?${queryParams.toString()}`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+            console.log(response);
 
             if (response.ok) {
                 const data = await response.json();
-                alert('Login successful!');
-                console.log('Response from server:', data);
-
-                // Redirect to the main page
-                window.location.href = '/'; // Replace '/main' with your actual main page route
+                sessionStorage.setItem("userId", data.userId);
+                console.log(sessionStorage.getItem('userId'));
+                alert("Login successful!");
+                goto("/"); // Redirect to main page
             } else {
                 const error = await response.json();
-                console.error('Login failed:', error);
-                alert(`Error: ${error.message || 'Login failed'}`);
+                errors.general =
+                    error.message || "Login failed. Please try again.";
             }
         } catch (error) {
-            console.error('Error making the request:', error);
-            alert('An error occurred while logging in. Please try again.');
+            console.error("Error during login:", error);
+            errors.general = "An error occurred. Please try again.";
         }
-    } else {
-        console.error('Form errors:', errors);
     }
-}
 </script>
 
-<div class="flex flex-col min-h-screen">
-    <!-- Page Header -->
-    <div class="flex items-center justify-center p-5">
-        <h1 class="text-black text-center text-3xl font-bold">Login</h1>
-    </div>
-
-    <!-- Main Content -->
-    <main class="bg-beige p-6 mx-4 mt-6 rounded-3xl shadow-lg text-dark-green flex-grow">
+<!-- HTML Form for Login -->
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+        <h1 class="text-2xl font-bold text-center mb-4">Login</h1>
         <form on:submit={handleSubmit} class="space-y-4">
             <!-- Username Field -->
             <div class="flex flex-col">
-                <label for="username" class="text-lg font-bold mb-2">Username</label>
-                <input type="text" id="username" name="username" bind:value={username} placeholder="Enter your username"
-                    class="p-3 rounded-lg border-2 border-dark-green text-dark-green focus:outline-none focus:border-green" />
-                {#if errors.username}
-                    <p class="text-red-600 text-sm mt-2">{errors.username}</p>
-                {/if}
+                <label for="username" class="font-bold">Username:</label>
+                <input
+                    id="username"
+                    type="text"
+                    bind:value={username}
+                    placeholder="Enter your username"
+                    class="p-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                />
             </div>
 
             <!-- Password Field -->
             <div class="flex flex-col">
-                <label for="password" class="text-lg font-bold mb-2">Password</label>
-                <input type="password" id="password" name="password" bind:value={password} placeholder="Enter your password"
-                    class="p-3 rounded-lg border-2 border-dark-green text-dark-green focus:outline-none focus:border-green" />
-                {#if errors.password}
-                    <p class="text-red-600 text-sm mt-2">{errors.password}</p>
-                {/if}
+                <label for="password" class="font-bold">Password:</label>
+                <input
+                    id="password"
+                    type="password"
+                    bind:value={password}
+                    placeholder="Enter your password"
+                    class="p-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                />
             </div>
 
-            <!-- Login Button -->
-            <button type="submit"
-                class="bg-orange-red w-full p-4 mt-6 rounded-2xl text-white font-bold shadow-md hover:bg-dark-green transition-all duration-300">
+            <!-- Error Message -->
+            {#if errors.general}
+                <p class="text-red-600 text-sm text-center">{errors.general}</p>
+            {/if}
+
+            <!-- Submit Button -->
+            <button
+                type="submit"
+                class="w-full bg-blue-500 text-white p-2 rounded font-bold hover:bg-blue-700 transition-all"
+            >
                 Log In
             </button>
         </form>
-
-        <!-- Register Link -->
-        <div class="text-center mt-6">
-            <p class="text-dark-green">Don't have an account?</p>
-            <a href="/register">
-                <button
-                    class="bg-green w-full p-4 mt-2 rounded-2xl text-white font-bold shadow-md hover:bg-dark-green transition-all duration-300">
-                    Register
-                </button>
-            </a>
-        </div>
-    </main>
+    </div>
 </div>

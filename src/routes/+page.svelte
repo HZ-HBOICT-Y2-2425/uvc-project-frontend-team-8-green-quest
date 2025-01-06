@@ -2,7 +2,7 @@
 // @ts-nocheck
 
     import Garden from "$lib/components/Garden.svelte";
-    import Challenges from "$lib/components/Challenges.svelte";
+    import Challenge from "$lib/components/Challenges.svelte";
     import "../app.css";
 </script>
 
@@ -14,5 +14,5 @@
 
 <h1 class="text-2xl p-2 mt-2 flex items-center justify-center">Challenges</h1>
 <div id="challenge">
-    <Challenges />
+    <Challenge />
 </div>

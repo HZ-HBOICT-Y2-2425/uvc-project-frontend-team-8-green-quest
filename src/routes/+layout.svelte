@@ -16,12 +16,14 @@
     // Fetch the data only once when the component mounts
     onMount(async () => {
         isLoading = true;
+        const userId = sessionStorage.getItem("userId");
+
         try {
-            const response = await fetch("http://localhost:3010/users/profile");
+            const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
             const data = await response.json();
-            profileData = data.results || [];
-            coins.set(profileData[0].coins);
-            co2saved.set(profileData[0].co2Saved)
+            profileData = data.profile || [];
+            coins.set(profileData.coins);
+            co2saved.set(profileData.co2Saved)
         } catch (error) {
             console.error("Failed to fetch profile data:", error);
         } finally {
@@ -39,9 +41,11 @@
             {:else}
                 <div class="flex flex-row">
                     <img src="/coins.png" alt="coins" class="w-12 h-fit" />
+
                     <h2 class="text-2xl mt-1">{$coins}</h2>
                 </div>
                 <h2 class="text-3xl mt-2">CO2: {$co2saved.toFixed(2)} kg</h2>
+
                 <a href="/profile">
                     <button id="profile">
                         <img
