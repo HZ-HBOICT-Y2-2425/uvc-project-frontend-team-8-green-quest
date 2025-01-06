@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { checkAuth } from "../../userAuth";
 
     export let selectedCategory = "trees";
 
@@ -12,6 +13,7 @@
     let selectedItem = null; // Stores the selected item to buy
 
     onMount(async () => {
+        checkAuth();
         isLoading = true;
         try {
             const response = await fetch("http://localhost:3010/items");
@@ -40,7 +42,8 @@
 
     async function buyItem() {
         try {
-            const userId = 1; // retrieve the real user here
+            const userId = sessionStorage.getItem("userId");
+
             const response = await fetch(
                 `http://localhost:3010/users/purchase?userId=${userId}&itemId=${selectedItem.itemID}`,
                 {

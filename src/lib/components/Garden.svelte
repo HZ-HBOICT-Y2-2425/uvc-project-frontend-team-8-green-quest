@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { checkAuth } from "../../userAuth"; // Import the checkAuth function
 
     import "../../app.css";
 
@@ -9,7 +10,9 @@
     let isLoading = true; // Set loading flag initially to true
 
     onMount(async () => {
-        const userId = 1; // retrieve the real user here
+        checkAuth();
+        const userId = sessionStorage.getItem("userId");
+        console.log(userId);
 
         try {
             const response = await fetch(
