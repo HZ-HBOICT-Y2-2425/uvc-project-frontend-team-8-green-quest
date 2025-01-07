@@ -7,7 +7,7 @@
     import { coins } from "../coins";
 
     // Check if the current route is either /login or /register
-    $: isAuthRoute = ["/login", "/register"].includes($page.url.pathname);
+    $: isAuthRoute = ["/login", "/register", "/intro"].includes($page.url.pathname);
 
     let profileData = []; // Store all items
     let users = [];
