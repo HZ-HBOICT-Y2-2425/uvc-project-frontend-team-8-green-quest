@@ -5,6 +5,6 @@ export function checkAuth() {
     const userId = sessionStorage.getItem("userId");
     // If userId is null (i.e., user is not logged in), redirect to login page
     if (!userId || userId==undefined) {
-        goto("/login");  // Redirect to login page
+        goto("/intro");  // Redirect to login page
     }
 }
