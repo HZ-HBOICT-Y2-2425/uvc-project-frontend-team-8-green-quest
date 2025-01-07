@@ -5,14 +5,21 @@
     selectedTab = tab;
   };
 
-  const globalUsers = [
-    { name: "Chavdar", level: 15 },
-    { name: "Joao", level: 13 },
-    { name: "Deodato", level: 12 },
-    { name: "Pereira", level: 9 },
-  ];
+  import { onMount } from "svelte";
 
-  const friendsUsers = [];
+  let globalUsers = [];
+
+  // Fetch users on component mount
+  onMount(async () => {
+    try {
+      const response = await fetch("http://localhost:3010/users");
+      if (!response.ok) throw new Error("Failed to fetch users");
+      globalUsers = await response.json();
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  });
+  console.log(globalUsers)
 </script>
 
 <div class="flex flex-col h-screen bg-beige">
@@ -41,18 +48,7 @@
         >
           GLOBAL
         </button>
-        <button
-          class={`p-2 rounded-full text-sm font-bold border-2 ${
-            selectedTab === "friends"
-              ? "bg-green text-black border-orange-red"
-              : "bg-green text-black border-darker-green"
-          }`}
-          on:click={() => selectTab("friends")}
-        >
-          FRIENDS
-        </button>
       </div>
-
       <!-- Divider -->
       <div class="border-l-2 border-black"></div>
 
@@ -62,24 +58,10 @@
           <ul class="text-black text-sm leading-6">
             {#each globalUsers as user, index}
               <li class="flex justify-between py-1">
-                <span>{index + 1}. {user.name}</span>
-                <span>LV: {user.level}</span>
+                <span>{index + 1}. {user.username}</span>
+                <span>LV: {user.co2Saved}</span>
               </li>
             {/each}
-          </ul>
-        {/if}
-        {#if selectedTab === "friends"}
-          <ul class="text-black text-sm text-center">
-            {#if friendsUsers.length > 0}
-              {#each friendsUsers as user, index}
-                <li class="flex justify-between py-1">
-                  <span>{index + 1}. {user.name}</span>
-                  <span>LV: {user.level}</span>
-                </li>
-              {/each}
-            {:else}
-              <li>No friends data available.</li>
-            {/if}
           </ul>
         {/if}
       </div>
