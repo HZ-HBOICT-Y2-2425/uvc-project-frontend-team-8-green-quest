@@ -43,6 +43,7 @@
     }
 </script>
 
+
 <!-- Profile Page Design -->
 <div class="bg-light-beige flex flex-col justify-between p-5">
     <div class="flex flex-row justify-between relative">
@@ -64,7 +65,7 @@
     {#if isLoading}
         <p>Loading...</p>
     {:else}
-        {#each profileData as { username, co2Saved, habits }}
+        {#each profileData as { username }}
             <section class="flex flex-col items-center justify-center relative p-2">
                 <img src="/profile_icon.png" alt="profile" class="w-64 h-fit" />
                 <section class="flex flex-row ml-2">
@@ -72,42 +73,9 @@
                     <h3 class="text-xl ml-2">{username}</h3>
                 </section>
             </section>
-
-            <section class="flex flex-row ml-2">
-                <h2 class="text-xl font-bold">Challenges completed:</h2>
-                <h3 class="text-xl ml-2">10</h3>
-            </section>
-
-            <section class="flex items-center justify-center relative p-2">
-                <button id="allChallenges">
-                    <h2 class="bg-green rounded-full w-40 p-2">See challenges</h2>
-                </button>
-            </section>
-
-            <section class="ml-2 p-2">
-                <h2 class="font-bold">Your characteristics:</h2>
-                <ol class="ml-6">
-                    <li class="list-disc">{habits || "No habits defined"}</li>
-                </ol>
-                <div class="flex items-center justify-center relative p-2 mt-2">
-                    <button id="characteristics">
-                        <h2 class="bg-green rounded-full w-50 p-2">Edit profile</h2>
-                    </button>
-                </div>
-            </section>
-
-            <section class="flex flex-row justify-center">
-                <div class="flex relative p-2">
-                    <button id="addFriends">
-                        <h2 class="bg-green rounded-full w-50 p-2">Add friends</h2>
-                    </button>
-                </div>
-                <div class="flex relative p-2">
-                    <button id="friendsList">
-                        <h2 class="bg-green rounded-full w-50 p-2">See friends list</h2>
-                    </button>
-                </div>
-            </section>
         {/each}
     {/if}
 </div>
+<main class="flex flex-col min-h-screen">
+    <slot />
+</main>
