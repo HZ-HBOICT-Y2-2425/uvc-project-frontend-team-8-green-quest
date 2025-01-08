@@ -1,18 +1,16 @@
 <script>
-    // @ts-nocheck
-    import { onMount } from "svelte";
-    import "../app.css";
-    import { page } from "$app/stores";
-    import { co2saved } from "../co2saved";
-    import { coins } from "../coins";
+  // @ts-nocheck
+  import { onMount } from "svelte";
+  import "../app.css";
+  import { page } from "$app/stores";
+  import { co2saved } from "../co2saved";
+  import { coins } from "../coins";
 
     // Check if the current route is either /login or /register
-    $: isAuthRoute = ["/login", "/register", "/intro"].includes($page.url.pathname);
+  $: isAuthRoute = ["/login", "/register", "/intro"].includes($page.url.pathname);
 
-    let profileData = []; // Store all items
-    let users = [];
-    let isLoading = true;
-
+  // Check if the current route is the leaderboard page
+  $: isLeaderboardPage = $page.url.pathname === "/leaderboard";
     // Fetch the data only once when the component mounts
     onMount(async () => {
         isLoading = true;
@@ -64,26 +62,56 @@
         <slot />
     </main>
 
-    <!-- Footer -->
-    {#if !isAuthRoute}
-        <footer class="bg-green flex justify-between p-3 w-full h-full mt-5">
-            <button id="shop">
-                <a href="/shop">
-                    <img src="/shop.png" alt="shop" class="w-12 h-fit" />
-                </a>
-            </button>
-            <button id="leaderboard">
-                <h2 class="text-3xl p-2 bg-orange-red rounded-3xl">
-                    Leaderboard
-                </h2>
-            </button>
-            <a id="info" href="/info">
-                <img
-                    src="/info.png"
-                    alt="information"
-                    class="w-10 h-fit mt-1 bg-orange-red rounded-3xl"
-                />
-            </a>
-        </footer>
+  <!-- Main Content -->
+  <main>
+    <slot />
+  </main>
+<!-- Footer -->
+{#if !isAuthRoute}
+  <footer class="bg-green flex justify-between p-3 w-full h-full mt-5">
+    {#if isLeaderboardPage}
+      <!-- Custom Footer for Leaderboard Page -->
+      <button id="shop">
+        <a href="/shop">
+          <img src="/shop.png" alt="shop" class="w-12 h-fit" />
+        </a>
+      </button>
+      <button id="leaderboard">
+        <a href="/" class="text-center">
+          <h2 class="text-3xl p-2 bg-orange-red rounded-3xl text-white">
+            Garden
+          </h2>
+        </a>
+      </button>
+      <a id="info" href="/info">
+        <img
+          src="/info.png"
+          alt="information"
+          class="w-10 h-fit mt-1 bg-orange-red rounded-3xl"
+        />
+      </a>
+    {:else}
+      <!-- Default Footer -->
+      <button id="shop">
+        <a href="/shop">
+          <img src="/shop.png" alt="shop" class="w-12 h-fit" />
+        </a>
+      </button>
+      <button id="leaderboard">
+        <a href="/leaderboard" class="text-center">
+          <h2 class="text-3xl p-2 bg-orange-red rounded-3xl text-white">
+            Leaderboard
+          </h2>
+        </a>
+      </button>
+      <a id="info" href="/info">
+        <img
+          src="/info.png"
+          alt="information"
+          class="w-10 h-fit mt-1 bg-orange-red rounded-3xl"
+        />
+      </a>
     {/if}
+  </footer>
+{/if}
 </div>
