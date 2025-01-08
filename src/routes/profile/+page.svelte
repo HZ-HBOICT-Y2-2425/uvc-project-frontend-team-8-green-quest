@@ -43,7 +43,6 @@
     }
 </script>
 
-
 <!-- Profile Page Design -->
 <div class="bg-light-beige flex flex-col justify-between p-5">
     <div class="flex flex-row justify-between relative">
@@ -73,9 +72,11 @@
                     <h3 class="text-xl ml-2">{username}</h3>
                 </section>
             </section>
+
+            <section class="flex flex-row ml-2">
+                <h2 class="text-xl font-bold">Challenges completed:</h2>
+                <h3 class="text-xl ml-2">10</h3>
+            </section>
         {/each}
     {/if}
 </div>
-<main class="flex flex-col min-h-screen">
-    <slot />
-</main>
