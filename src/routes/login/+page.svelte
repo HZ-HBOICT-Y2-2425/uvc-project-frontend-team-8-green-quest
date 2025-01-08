@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { goto } from "$app/navigation";
 
     let username = "";
@@ -14,6 +16,8 @@
                 password: password, // Inputted password
             });
 
+            
+
             const response = await fetch(
                 `http://localhost:3010/users/login?${queryParams.toString()}`,
                 {
@@ -21,7 +25,6 @@
                     headers: { "Content-Type": "application/json" },
                 },
             );
-            console.log(response);
 
             if (response.ok) {
                 const data = await response.json();
