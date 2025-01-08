@@ -15,11 +15,13 @@
       const response = await fetch("http://localhost:3010/users");
       if (!response.ok) throw new Error("Failed to fetch users");
       globalUsers = await response.json();
+
+      // Sort users by co2Saved in descending order
+      globalUsers = globalUsers.sort((a, b) => b.co2Saved - a.co2Saved);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   });
-  console.log(globalUsers)
 </script>
 
 <div class="flex flex-col h-screen bg-beige">
@@ -59,7 +61,7 @@
             {#each globalUsers as user, index}
               <li class="flex justify-between py-1">
                 <span>{index + 1}. {user.username}</span>
-                <span>LV: {user.co2Saved}</span>
+                <span>CO2: {user.co2Saved} KG</span>
               </li>
             {/each}
           </ul>
