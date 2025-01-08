@@ -84,45 +84,6 @@
                 <h2 class="text-xl font-bold">Challenges completed:</h2>
                 <h3 class="text-xl ml-2">{challengesCompleted}</h3>
             </section>
-
-            <section class="flex items-center justify-center relative p-2">
-                <button id="allChallenges">
-                    <h2 class="bg-green rounded-full w-40 p-2">
-                        See challenges
-                    </h2>
-                </button>
-            </section>
-
-            <section class="ml-2 p-2">
-                <h2 class="font-bold">Your characteristics:</h2>
-                <ol class="ml-6">
-                    <li class="list-disc">{habits || "No habits defined"}</li>
-                </ol>
-                <div class="flex items-center justify-center relative p-2 mt-2">
-                    <button id="characteristics">
-                        <h2 class="bg-green rounded-full w-50 p-2">
-                            Edit profile
-                        </h2>
-                    </button>
-                </div>
-            </section>
-
-            <section class="flex flex-row justify-center">
-                <div class="flex relative p-2">
-                    <button id="addFriends">
-                        <h2 class="bg-green rounded-full w-50 p-2">
-                            Add friends
-                        </h2>
-                    </button>
-                </div>
-                <div class="flex relative p-2">
-                    <button id="friendsList">
-                        <h2 class="bg-green rounded-full w-50 p-2">
-                            See friends list
-                        </h2>
-                    </button>
-                </div>
-            </section>
         {/each}
     {/if}
 </div>
