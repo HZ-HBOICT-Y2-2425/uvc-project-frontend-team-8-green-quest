@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import { checkAuth } from "../../userAuth";
@@ -18,11 +20,14 @@
 
         isLoading = true;
         try {
-            const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
+            const response = await fetch(
+                `http://localhost:3010/users/profile?userId=${userId}`,
+            );
 
             if (response.ok) {
                 const data = await response.json();
                 profileData = [data.profile]; // Wrap data in an array for #each
+                console.log(profileData);
             } else {
                 console.error("Failed to fetch profile data");
                 alert("Session expired, please log in again.");
@@ -64,8 +69,10 @@
     {#if isLoading}
         <p>Loading...</p>
     {:else}
-        {#each profileData as { username }}
-            <section class="flex flex-col items-center justify-center relative p-2">
+        {#each profileData as { username, co2Saved, habits, challengesCompleted }}
+            <section
+                class="flex flex-col items-center justify-center relative p-2"
+            >
                 <img src="/profile_icon.png" alt="profile" class="w-64 h-fit" />
                 <section class="flex flex-row ml-2">
                     <h2 class="text-xl font-bold">Username:</h2>
@@ -75,7 +82,7 @@
 
             <section class="flex flex-row ml-2">
                 <h2 class="text-xl font-bold">Challenges completed:</h2>
-                <h3 class="text-xl ml-2">10</h3>
+                <h3 class="text-xl ml-2">{challengesCompleted}</h3>
             </section>
         {/each}
     {/if}

@@ -102,7 +102,12 @@
       }
 
       const data = await response.json();
-      console.log("Daily challenges fetched successfully:", data);
+      challenges = data.challenges;
+      if (challenges.length > 0) {
+        if (!challenges[0].title) {
+          challenges = challenges[0];
+        }
+      }
     } catch (error) {
       console.error("Error fetching daily challenges:", error);
     }
@@ -119,7 +124,7 @@
   };
 
   onMount(() => {
-    fetchChallenges();
+    //fetchChallenges();
     getDailyChallenges();
   });
 </script>
@@ -139,6 +144,9 @@
         </div>
       </div>
     {/each}
+    {#if challenges.length == 0}
+      <h2>Challenges finished for today, well done!!</h2>
+    {/if}
   </section>
 </main>
 
