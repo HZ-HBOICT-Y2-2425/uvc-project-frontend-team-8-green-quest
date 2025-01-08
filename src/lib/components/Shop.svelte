@@ -1,22 +1,26 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { checkAuth } from "../../userAuth";
 
     export let selectedCategory = "trees";
 
-    let shopData = []; // Store all items
-    let items = []; // Filtered items
+    let shopData = [];
+    let items = [];
     let isLoading = true;
 
-    // Fetch the data only once when the component mounts
+    let showModal = false; // Controls modal visibility
+    let selectedItem = null; // Stores the selected item to buy
+
     onMount(async () => {
+        checkAuth();
         isLoading = true;
         try {
             const response = await fetch("http://localhost:3010/items");
             const data = await response.json();
             shopData = data.data || [];
             shopData = shopData[0];
-            filterItems(); // Filter items after fetching
+            filterItems();
         } catch (error) {
             console.error("Failed to fetch shop data:", error);
         } finally {
@@ -24,7 +28,6 @@
         }
     });
 
-    // Function to filter items based on selectedCategory
     const filterItems = () => {
         items = shopData.filter(
             (item) =>
@@ -32,12 +35,17 @@
         );
     };
 
-    async function buyItem(id) {
+    const confirmBuy = (item) => {
+        selectedItem = item;
+        showModal = true;
+    };
+
+    async function buyItem() {
         try {
-            const userId = 1; // retrieve the real user here
-    
+            const userId = sessionStorage.getItem("userId");
+
             const response = await fetch(
-                `http://localhost:3010/users/purchase?userId=${userId}&itemId=${id}`,
+                `http://localhost:3010/users/purchase?userId=${userId}&itemId=${selectedItem.itemID}`,
                 {
                     method: "POST",
                 },
@@ -53,10 +61,11 @@
         } catch (error) {
             console.error("Error purchasing item:", error);
             alert("Your coins are insufficient.");
+        } finally {
+            showModal = false;
         }
     }
 
-    // Reactively call filterItems when selectedCategory changes
     $: if (shopData.length > 0 && selectedCategory) {
         filterItems();
     }
@@ -70,10 +79,9 @@
     {:else}
         {#each items as { itemID, name, path, price, level_required }}
             <div
-                class="flex flex-col items-center justify-between shadow-md rounded-lg p-1"
+                class="flex flex-col items-center justify-between  p-1"
                 key={itemID}
             >
-                <!-- Image -->
                 <img
                     src={path}
                     alt={name}
@@ -81,8 +89,10 @@
                 />
                 <div class="bg-orange-red w-fit p-2 mt-2 rounded-lg">
                     <p class="text-center text-base">{name}</p>
-                    <!-- Coins -->
-                    <button class="flex gap-1" on:click={() => buyItem(itemID)}>
+                    <button
+                        class="flex gap-1"
+                        on:click={() => confirmBuy({ itemID, name, price })}
+                    >
                         <img src="/coins.png" alt="coins" class="h-4 w-4" />
                         <span class="text-center text-base">{price}</span>
                     </button>
@@ -90,7 +100,31 @@
             </div>
         {/each}
     {/if}
-</div>
 
-<style>
-</style>
+    {#if showModal}
+        <!-- Modal Backdrop -->
+        <div class="fixed bottom-10 left-0 w-full rounded-full p-6">
+            <!-- Modal Content -->
+            <div class="bg-green rounded-xl  p-6 w-full">
+                <h2 class="text-2xl font-bold mb-4">Confirm Purchase</h2>
+                <p class="text-gray-700">
+                    Are you sure you want to buy <b>{selectedItem.name}</b> for <b>{selectedItem.price} coins</b>?
+                </p>
+                <div class="flex justify-end gap-4 mt-6">
+                    <button
+                        class="px-4 py-2"
+                        on:click={() => (showModal = false)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        class="px-4 py-2 border-4 border-darker-green rounded-full"
+                        on:click={buyItem}
+                    >
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    {/if}
+</div>

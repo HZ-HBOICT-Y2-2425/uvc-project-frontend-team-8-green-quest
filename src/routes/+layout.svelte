@@ -6,53 +6,61 @@
   import { co2saved } from "../co2saved";
   import { coins } from "../coins";
 
-  // Check if the current route is either /login or /register
-  $: isAuthRoute = ["/login", "/register"].includes($page.url.pathname);
+    // Check if the current route is either /login or /register
+  $: isAuthRoute = ["/login", "/register", "/intro"].includes($page.url.pathname);
 
   // Check if the current route is the leaderboard page
   $: isLeaderboardPage = $page.url.pathname === "/leaderboard";
+    // Fetch the data only once when the component mounts
+    onMount(async () => {
+        isLoading = true;
+        const userId = sessionStorage.getItem("userId");
 
-  let profileData = []; // Store all items
-  let users = [];
-  let isLoading = true;
-
-  // Fetch the data only once when the component mounts
-  onMount(async () => {
-    isLoading = true;
-    try {
-      const response = await fetch("http://localhost:3010/users/profile");
-      const data = await response.json();
-      profileData = data.results || [];
-      coins.set(profileData[0].coins);
-      co2saved.set(profileData[0].co2Saved);
-    } catch (error) {
-      console.error("Failed to fetch profile data:", error);
-    } finally {
-      isLoading = false;
-    }
-  });
+        try {
+            const response = await fetch(`http://localhost:3010/users/profile?userId=${userId}`);
+            const data = await response.json();
+            profileData = data.profile || [];
+            coins.set(profileData.coins);
+            co2saved.set(profileData.co2Saved)
+        } catch (error) {
+            console.error("Failed to fetch profile data:", error);
+        } finally {
+            isLoading = false;
+        }
+    });
 </script>
 
 <div class="flex flex-col justify-between">
-  <!-- Header -->
-  {#if !isAuthRoute}
-    <header class="bg-green flex justify-between p-3 w-full h-full">
-      {#if isLoading}
-        <p>Loading...</p>
-      {:else}
-        <div class="flex flex-row">
-          <img src="/coins.png" alt="coins" class="w-12 h-fit" />
-          <h2 class="text-2xl mt-1">{$coins}</h2>
-        </div>
-        <h2 class="text-3xl mt-2">CO2: {$co2saved.toFixed(2)} kg</h2>
-        <a href="/profile">
-          <button id="profile">
-            <img src="/profile_icon.png" alt="profile" class="w-12 h-fit" />
-          </button>
-        </a>
-      {/if}
-    </header>
-  {/if}
+    <!-- Header -->
+    {#if !isAuthRoute}
+        <header class="bg-green flex justify-between p-3 w-full h-full">
+            {#if isLoading}
+                <p>Loading...</p>
+            {:else}
+                <div class="flex flex-row">
+                    <img src="/coins.png" alt="coins" class="w-12 h-fit" />
+
+                    <h2 class="text-2xl mt-1">{$coins}</h2>
+                </div>
+                <h2 class="text-3xl mt-2">CO2: {$co2saved.toFixed(2)} kg</h2>
+
+                <a href="/profile">
+                    <button id="profile">
+                        <img
+                            src="/profile_icon.png"
+                            alt="profile"
+                            class="w-12 h-fit"
+                        />
+                    </button>
+                </a>
+            {/if}
+        </header>
+    {/if}
+
+    <!-- Main Content -->
+    <main>
+        <slot />
+    </main>
 
   <!-- Main Content -->
   <main>
