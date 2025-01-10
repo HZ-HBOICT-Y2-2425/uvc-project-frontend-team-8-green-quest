@@ -55,8 +55,8 @@
 
             if (response.ok) {
                 const data = await response.json();
+                sessionStorage.setItem("userId", data.userId);
                 alert('Registration successful!');
-                console.log('Response from server:', data);
                 window.location.href = '/';
             } else {
                 const error = await response.json();

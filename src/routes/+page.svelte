@@ -2,7 +2,7 @@
 // @ts-nocheck
 
     import Garden from "$lib/components/Garden.svelte";
-    import Challenge from "$lib/components/Challenge.svelte";
+    import Challenge from "$lib/components/Challenges.svelte";
     import "../app.css";
 </script>
 

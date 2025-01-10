@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { checkAuth } from "../../userAuth"; // Import the checkAuth function
 
     import "../../app.css";
 
@@ -9,7 +10,8 @@
     let isLoading = true; // Set loading flag initially to true
 
     onMount(async () => {
-        const userId = 1; // retrieve the real user here
+        checkAuth();
+        const userId = sessionStorage.getItem("userId");
 
         try {
             const response = await fetch(
@@ -28,8 +30,7 @@
             });
             const data = await response.json();
             images = data.data || [];
-            console.log(images[19]);
-            console.log(images[18]); // Log the images after fetching
+            images = images[0];
         } catch (error) {
             console.error("Failed to fetch images data:", error);
         } finally {
@@ -95,7 +96,6 @@
         {#if !isLoading}
             <!-- Items in the garden -->
             {#each items as item}
-                {console.log("Item ID:", item.itemID)}
                 <!-- Log itemID -->
                 {#if images[item.itemID - 1]}
                     <img
