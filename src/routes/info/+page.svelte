@@ -49,6 +49,10 @@
 
                     <dt class="font-bold text-lg">Q: What is a virtual garden?</dt>
                     <dd class="ml-4 text-base leading-relaxed">A: The virtual garden is your personal space in Green Quest. You can use the coins you earn from challenges to customize and upgrade your garden, representing your journey towards a sustainable lifestyle.</dd>
+                
+                    <dt class="font-bold text-lg">Version of the application</dt>
+                    <dd class="ml-4 text-base leading-relaxed">v3.0.0</dd>
+
                 </dl>
             </div>
         </details>
