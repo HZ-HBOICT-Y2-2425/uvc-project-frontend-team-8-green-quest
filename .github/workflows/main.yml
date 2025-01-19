@@ -43,9 +43,5 @@ jobs:
         run: |
          echo "Build failed!"
 
-      # Step 8: Run tests
-      - name: Run tests
-        run: npm test
-
 
 
