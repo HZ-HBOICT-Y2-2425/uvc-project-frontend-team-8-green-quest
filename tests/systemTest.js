@@ -32,7 +32,7 @@ const makeRequest = (hostname, port, path) =>
  */
 (async () => {
   const hostname = 'localhost'; // Replace with correct link
-  const port = 5173; // Replace with correct port
+  const port = 4173; // Replace with correct port
   const routes = ['/', '/shop', '/challenges/1', '/info'];
 
   try {
