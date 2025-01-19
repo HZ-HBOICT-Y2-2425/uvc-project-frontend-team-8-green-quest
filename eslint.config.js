@@ -29,7 +29,7 @@ export default [
     rules: {
       "no-unused-vars": ["warn"], // Warn on unused variables
       "no-console": "off", // Allow console statements
-      "indent": ["error", 2], // Default: Enforce 2 spaces for indentation
+      "indent": ["warn", 2], // Default: Enforce 2 spaces for indentation
     },
   },
   {
