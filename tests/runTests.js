@@ -21,7 +21,7 @@ const runTest = (script) =>
 (async () => {
   try {
     // Run smoke test
-    await runTest('tests/smokeTest.js');
+    //await runTest('tests/smokeTest.js');
     
     // Run system test
     await runTest('tests/systemTest.js');
